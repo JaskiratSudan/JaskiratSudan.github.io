@@ -1,0 +1,252 @@
+/* styles.css */
+
+/* Base & layout */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    transition: background 0.3s, color 0.3s;
+  }
+  
+  .dark-mode {
+    background: #121212;
+    color: #eee;
+  }
+  
+  /* Navigation */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    transition: background 0.3s;
+  }
+  
+  .dark-mode nav {
+    background: #1e1e1e;
+  }
+  
+  nav .nav-links a {
+    margin-right: 1rem;
+    color: #0066cc;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  nav .nav-links a:last-child {
+    margin-right: 0;
+  }
+  
+  .dark-mode nav .nav-links a {
+    color: #88c0d0;
+  }
+  
+  nav .nav-links a:hover {
+    text-decoration: underline;
+  }
+  
+  .toggle-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+  }
+  
+  /* Intro Section (About Me) full viewport */
+  .intro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 2rem;
+  }
+  
+  .profile-photo {
+    flex: 0 0 200px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 2rem;
+  }
+  
+  .intro-text {
+    flex: 1;
+    max-width: 600px;
+  }
+  
+  .intro-text h1 {
+    margin-bottom: 1rem;
+  }
+  
+  .intro-text p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+
+  h2 {
+    margin-bottom: 1rem;
+  }
+  
+  /* Sections */
+  section {
+    padding: 4rem 2rem;
+    max-width: 900px;
+    margin: auto;
+  }
+  
+  /* Projects full-width */
+  #projects {
+    max-width: none;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin: 0;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw;
+    padding: 4rem 2rem;
+  }
+
+  #publications{
+    max-width: none;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin: 0;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw;
+    padding: 4rem 2rem;
+  }
+
+  #blogs{
+    max-width: none;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin: 0;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw;
+    padding: 4rem 2rem;
+  }
+  
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    max-width: calc(100% - 4rem);
+    margin: auto;
+  }
+  
+  .project-tile {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: #f5f5f5;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+  }
+  
+  .dark-mode .project-tile {
+    background: #2a2a2a;
+  }
+  
+  .project-tile:hover {
+    transform: translateY(-4px);
+  }
+  
+  .image-container {
+    width: 100%;
+    padding-top: 60%;
+    position: relative;
+  }
+  
+  .image-container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .tile-desc {
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  .tile-desc h3 {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+  
+  .tile-desc p {
+    margin: 0.5rem 0 0;
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
+  /* Publications, Blogs, Skills */
+  #publications ul,
+  #blogs ul,
+  #skills ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  #publications li,
+  #blogs li,
+  #skills li {
+    margin-bottom: 0.75rem;
+  }
+  
+  /* Footer */
+  footer {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #666;
+    padding: 2rem;
+  }
+  
+  /* Back-to-top */
+  #back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    display: none;
+    background: #0066cc;
+    color: white;
+    border: none;
+    padding: 0.6rem 0.8rem;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s;
+  }
+  
+  .dark-mode #back-to-top {
+    background: #88c0d0;
+    color: #333;
+  }

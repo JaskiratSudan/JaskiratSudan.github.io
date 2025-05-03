@@ -1,0 +1,110 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jaskirat Singh Sudan – Researcher</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#publications">Publications</a>
+      <a href="#blogs">Blogs</a>
+      <a href="#skills">Skills</a>
+    </div>
+    <button id="theme-toggle" class="toggle-btn">🌙</button>
+  </nav>
+
+  <!-- Intro: image left, name + bio right -->
+  <section id="about" class="intro">
+    <img src="images/jaskirat.jpeg" alt="Jaskirat Singh Sudan" class="profile-photo">
+    <div class="intro-text">
+      <h1>Jaskirat Singh Sudan</h1>
+      <p>I'm a dedicated AI researcher and Master's student at the University of Michigan Dearborn, driven to bridge cutting-edge research and practical applications. With a 3.7 GPA in my AI program, I specialize in computer vision, representation learning, and energy-based approaches to extract robust features across modalities.</p>
+      <p>My academic foundation includes a B.Tech in Computer Science from Medi-Caps University (CGPA: 8.12), where I first developed my passion for data-driven solutions. During my undergraduate studies, I led star-based navigation and RF interference mitigation projects at IIT Indore, securing real-world experience in deep learning and signal processing.</p>
+      <p>Currently, at UMich TAI Lab, I lead a 5-member team to build an innovative authentication and gesture system using polarized tape patterns on illuminated nails, collaborating closely with Prof. Xiao Zhang.</p>
+      <p>Connect with me on <a href="https://www.linkedin.com/in/jaskirat-sudan/" target="_blank">LinkedIn</a>.</p>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="projects-grid">
+      <!-- Project tiles as before -->
+      <a class="project-tile" href="https://github.com/JaskiratSudan/embeddings" target="_blank">
+        <div class="image-container"><img src="images/projects/embeddings.png" alt="Contrastive Learning with Siamese Network"></div>
+        <div class="tile-desc"><h3>Contrastive Learning<br>Siamese Network</h3><p>Implemented a Siamese CNN to learn a meaningful distance metric on MNIST, achieving high verification accuracy and smooth latent-space embeddings.</p></div>
+      </a>
+      <a class="project-tile" href="https://github.com/JaskiratSudan/Image-Segmentation-for-Autonomous-Driving-in-Low-Light-Conditions" target="_blank">
+        <div class="image-container"><img src="images/projects/lowlight_segmentation.png" alt="Image Segmentation in Low-Light Conditions"></div>
+        <div class="tile-desc"><h3>Image Segmentation<br>Low-Light Driving</h3><p>Fine-tuned U-Net on low-light driving datasets (A2D2, BDD100K), using advanced augmentation to maintain accuracy under challenging conditions.</p></div>
+      </a>
+      <a class="project-tile" href="https://github.com/JaskiratSudan/Self-Driving-Mario-Kart-with-CNN-LSTM" target="_blank">
+        <div class="image-container"><img src="images/projects/mariokart.png" alt="Self-Driving Mario Kart"></div>
+        <div class="tile-desc"><h3>Self-Driving<br>Mario Kart</h3><p>Combined CNN+LSTM to capture spatio-temporal features for autonomous control in Mario Kart 64, interfacing via Mupen64Plus for real-time testing.</p></div>
+      </a>
+      <a class="project-tile" href="https://github.com/JaskiratSudan/ece5831-2024-final-project" target="_blank">
+        <div class="image-container"><img src="images/projects/speech2img.png" alt="Speech-to-Image Generation"></div>
+        <div class="tile-desc"><h3>Speech-to-Image<br>Latent Diffusion</h3><p>Fine-tuned a latent diffusion model to generate images from speech prompts, integrating audio feature extraction for multimodal synthesis.</p></div>
+      </a>
+      <a class="project-tile" href="https://github.com/JaskiratSudan/Scalable_Convolutional_Autoencoder" target="_blank">
+        <div class="image-container"><img src="images/projects/scae.png" alt="Scalable Convolutional Autoencoder"></div>
+        <div class="tile-desc"><h3>Scalable Conv<br>Autoencoder</h3><p>Developed a hierarchical convolutional autoencoder for large-scale image compression, enabling efficient encoding of high-resolution inputs with minimal loss.</p></div>
+      </a>
+      <a class="project-tile" href="https://github.com/JaskiratSudan/SAM_on_PC" target="_blank">
+        <div class="image-container"><img src="images/projects/sam_gui.png" alt="Segment Anything GUI"></div>
+        <div class="tile-desc"><h3>Segment Anything<br>GUI</h3><p>Built a Tkinter GUI for Meta’s Segment-Anything model, enabling intuitive region selection and mask refinement on arbitrary images.</p></div>
+      </a>
+      <a class="project-tile" href="https://github.com/JaskiratSudan/Air-Draw" target="_blank">
+        <div class="image-container"><img src="images/projects/airdraw.png" alt="Air-Draw Gesture Interface"></div>
+        <div class="tile-desc"><h3>Air-Draw<br>Gesture Interface</h3><p>Implemented real-time hand-tracking with OpenCV to enable 3D air-drawing, capturing gestures and rendering strokes on screen.</p></div>
+      </a>
+    </div>
+  </section>
+
+  <section id="publications">
+    <h2>Publications &amp; Research</h2>
+    <div class="projects-grid">
+    <a class="project-tile" href="https://www.iieta.org/journals/isi/paper/10.18280/isi.290124" target="_blank">
+        <div class="image-container"><img src="images/publications/eeg_artifact.png" alt="EEG Artifact Removal Methods"></div>
+        <div class="tile-desc">
+          <h3>EEG Artifact Removal Methods</h3>
+          <p>Systematic review identifying hybrid ICA+wavelet methods reducing noise by ~30% for real-time BCIs.</p>
+          <span class="tile-meta">ISI Journal, Feb 2024</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <section id="blogs">
+    <h2>Online Blogs</h2>
+    <div class="projects-grid">
+      <a class="project-tile" href="https://medium.com/@jaskiratsinghsudan/radio-astronomy-4247b744f419" target="_blank">
+        <div class="image-container"><img src="images/blogs/radio_astronomy.png" alt="Radio Astronomy Blog"></div>
+        <div class="tile-desc">
+          <h3>Radio Astronomy</h3>
+          <span class="tile-meta">Mar 2023</span>
+        </div>
+      </a>
+      <a class="project-tile" href="https://medium.com/@jaskiratsinghsudan/most-important-algorithm-that-averted-a-nuclear-conflict-9dc97f5b259a" target="_blank">
+        <div class="image-container"><img src="images/blogs/nuclear_conflict.png" alt="Nuclear Conflict Algorithm Blog"></div>
+        <div class="tile-desc">
+          <h3>Most Important Algorithm That Averted a Nuclear Conflict</h3>
+          <span class="tile-meta">Nov 2023</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <p><a href="https://github.com/jaskirat-sudan" target="_blank">GitHub</a> • <a href="mailto:your.email@domain.com">your.email@domain.com</a></p>
+  </footer>
+
+  <button id="back-to-top" title="Back to Top">↑</button>
+  <script src="script.js"></script>
+</body>
+</html>
