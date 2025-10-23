@@ -1,110 +1,222 @@
-<!-- index.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Jaskirat Singh Sudan</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta name="description" content="Personal research website of Jaskirat Singh Sudan representation learning, SSL embeddings, and robust deepfake audio detection." />
+  <link rel="stylesheet" href="styles.css?v=6">
+
+  <script src="main.js" defer></script>
 </head>
+
 <body>
-  <nav>
-    <div class="nav-links">
+  <!-- ===== Top Navigation ===== -->
+  <header>
+    <nav class="nav">
       <a href="#about">About</a>
       <a href="#projects">Projects</a>
       <a href="#publications">Publications</a>
-      <a href="#blogs">Blogs</a>
-      <a href="#skills">Skills</a>
-    </div>
-    <button id="theme-toggle" class="toggle-btn">🌙</button>
-  </nav>
+      <a href="#blog">Blogs</a>
+      <span class="spacer"></span>
+      <button id="themeToggle" class="btn-toggle" aria-label="Toggle color theme" aria-pressed="false" title="Toggle theme">☾</button>
+    </nav>
+  </header>
 
-  <!-- Intro: image left, name + bio right -->
-  <section id="about" class="intro">
-    <img src="images/jaskirat.jpeg" alt="Jaskirat Singh Sudan" class="profile-photo">
-    <div class="intro-text">
-      <h1>Jaskirat Singh Sudan</h1>
-      <p>I'm a dedicated AI researcher and Master's student at the University of Michigan Dearborn, driven to bridge cutting-edge research and practical applications. With a 3.7 GPA in my AI program, I specialize in computer vision, representation learning, and energy-based approaches to extract robust features across modalities.</p>
-      <p>My academic foundation includes a B.Tech in Computer Science from Medi-Caps University (CGPA: 8.12), where I first developed my passion for data-driven solutions. During my undergraduate studies, I led star-based navigation and RF interference mitigation projects at IIT Indore, securing real-world experience in deep learning and signal processing.</p>
-      <p>Currently, at UMich TAI Lab, I lead a 5-member team to build an innovative authentication and gesture system using polarized tape patterns on illuminated nails, collaborating closely with Prof. Xiao Zhang.</p>
-      <p>Connect with me on <a href="https://www.linkedin.com/in/jaskirat-sudan/" target="_blank">LinkedIn</a>.</p>
-    </div>
-  </section>
-
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="projects-grid">
-      <!-- Project tiles as before -->
-      <a class="project-tile" href="https://github.com/JaskiratSudan/embeddings" target="_blank">
-        <div class="image-container"><img src="images/projects/embeddings.png" alt="Contrastive Learning with Siamese Network"></div>
-        <div class="tile-desc"><h3>Contrastive Learning<br>Siamese Network</h3><p>Implemented a Siamese CNN to learn a meaningful distance metric on MNIST, achieving high verification accuracy and smooth latent-space embeddings.</p></div>
-      </a>
-      <a class="project-tile" href="https://github.com/JaskiratSudan/Image-Segmentation-for-Autonomous-Driving-in-Low-Light-Conditions" target="_blank">
-        <div class="image-container"><img src="images/projects/lowlight_segmentation.png" alt="Image Segmentation in Low-Light Conditions"></div>
-        <div class="tile-desc"><h3>Image Segmentation<br>Low-Light Driving</h3><p>Fine-tuned U-Net on low-light driving datasets (A2D2, BDD100K), using advanced augmentation to maintain accuracy under challenging conditions.</p></div>
-      </a>
-      <a class="project-tile" href="https://github.com/JaskiratSudan/Self-Driving-Mario-Kart-with-CNN-LSTM" target="_blank">
-        <div class="image-container"><img src="images/projects/mariokart.png" alt="Self-Driving Mario Kart"></div>
-        <div class="tile-desc"><h3>Self-Driving<br>Mario Kart</h3><p>Combined CNN+LSTM to capture spatio-temporal features for autonomous control in Mario Kart 64, interfacing via Mupen64Plus for real-time testing.</p></div>
-      </a>
-      <a class="project-tile" href="https://github.com/JaskiratSudan/ece5831-2024-final-project" target="_blank">
-        <div class="image-container"><img src="images/projects/speech2img.png" alt="Speech-to-Image Generation"></div>
-        <div class="tile-desc"><h3>Speech-to-Image<br>Latent Diffusion</h3><p>Fine-tuned a latent diffusion model to generate images from speech prompts, integrating audio feature extraction for multimodal synthesis.</p></div>
-      </a>
-      <a class="project-tile" href="https://github.com/JaskiratSudan/Scalable_Convolutional_Autoencoder" target="_blank">
-        <div class="image-container"><img src="images/projects/scae.png" alt="Scalable Convolutional Autoencoder"></div>
-        <div class="tile-desc"><h3>Scalable Conv<br>Autoencoder</h3><p>Developed a hierarchical convolutional autoencoder for large-scale image compression, enabling efficient encoding of high-resolution inputs with minimal loss.</p></div>
-      </a>
-      <a class="project-tile" href="https://github.com/JaskiratSudan/SAM_on_PC" target="_blank">
-        <div class="image-container"><img src="images/projects/sam_gui.png" alt="Segment Anything GUI"></div>
-        <div class="tile-desc"><h3>Segment Anything<br>GUI</h3><p>Built a Tkinter GUI for Meta’s Segment-Anything model, enabling intuitive region selection and mask refinement on arbitrary images.</p></div>
-      </a>
-      <a class="project-tile" href="https://github.com/JaskiratSudan/Air-Draw" target="_blank">
-        <div class="image-container"><img src="images/projects/airdraw.png" alt="Air-Draw Gesture Interface"></div>
-        <div class="tile-desc"><h3>Air-Draw<br>Gesture Interface</h3><p>Implemented real-time hand-tracking with OpenCV to enable 3D air-drawing, capturing gestures and rendering strokes on screen.</p></div>
-      </a>
-    </div>
-  </section>
-
-  <section id="publications">
-    <h2>Publications &amp; Research</h2>
-    <div class="projects-grid">
-    <a class="project-tile" href="https://www.iieta.org/journals/isi/paper/10.18280/isi.290124" target="_blank">
-        <div class="image-container"><img src="images/publications/eeg_artifact.png" alt="EEG Artifact Removal Methods"></div>
-        <div class="tile-desc">
-          <h3>EEG Artifact Removal Methods</h3>
-          <p>Systematic review identifying hybrid ICA+wavelet methods reducing noise by ~30% for real-time BCIs.</p>
-          <span class="tile-meta">ISI Journal, Feb 2024</span>
+  <main class="container">
+    <!-- ===== Hero ===== -->
+    <section id="about" class="hero">
+      <div class="photo-column">
+      <img class="avatar" src="images/jaskirat.jpeg" alt="Portrait of Jaskirat Singh Sudan" onerror="this.src='https://via.placeholder.com/300x300?text=JS'" />
+      
+      <!-- Links directly under the avatar -->
+      <div class="profile-links">
+        <div class="row">
+          <a href="https://github.com/JaskiratSudan" target="_blank" rel="noopener">Github</a>
+          <span class="sep">|</span>
+          <a href="https://www.linkedin.com/in/jaskirat-sudan/" target="_blank">LinkedIn</a>
+          <span class="sep">|</span>
+          <a href="https://www.youtube.com/channel/UCAMOPWHezU_MntFoAlkS74A" target="_blank" rel="noopener">Youtube</a>
         </div>
-      </a>
+        <div class="row">
+          <!-- <a href="https://github.com/JaskiratSudan" target="_blank" rel="noopener">Github</a>
+          <span class="sep">|</span> -->
+          <a href="https://scholar.google.com/citations?user=rgzvwiAAAAAJ&hl=en&authuser=1" target="_blank" rel="noopener">Google Scholar</a>
+        </div>
+      </div>
     </div>
-  </section>
+      <div>
+        <h1>Jaskirat Singh Sudan</h1>
+        <p class="subtitle">M.S. in Artificial Intelligence (’26) · University of Michigan–Dearborn</p>
+        <div class="meta">
+          <span>Representation Learning · SSL Embeddings · Audio Forensics · Computer Vision</span>
+        </div>
+        <div class="chips">
+          <span class="chip">Embeddings</span>
+          <span class="chip">Self-Supervised Learning</span>
+          <span class="chip">Mixture-of-Experts</span>
+          <span class="chip">Disentanglement</span>
+          <span class="chip">Vision & Audio</span>
+        </div>
+        <p style="margin-top:14px;max-width:75ch">
+          M.S. student in AI at UM-Dearborn. At ISSF Lab, my thesis builds a Mixture-of-Experts over audio SSL models to disentangle style, linguistics, emotion, and prosody for robust deepfake detection; at TAI Lab, I lead a 5-member team developing a visible-light tag authentication system. Previously a Research Assistant at IIT Indore (star-catalog navigation, RF-interference mitigation for GMRT). B.Tech in Computer Science, Medi-Caps University (’24). My interests are computer vision and machine learning, especially representation learning and self-supervised embeddings.
+        </p>
+        <p style="margin-top:10px;max-width:85ch">
+          I believe real understanding can’t come from text alone. Like humans, models need perception to build “mental models” of the world. My work uses representation learning and self-supervised learning, pretext tasks like mask-and-reconstruct for images, video, and audio to force models to form rich embeddings (their internal mental images). By shaping these embeddings with tailored losses, I steer what models attend to and how they reason. Goal: systems that truly grasp the world, not just the words about it.        </p>
+      </div>
+    </section>
 
-  <section id="blogs">
-    <h2>Online Blogs</h2>
-    <div class="projects-grid">
-      <a class="project-tile" href="https://medium.com/@jaskiratsinghsudan/radio-astronomy-4247b744f419" target="_blank">
-        <div class="image-container"><img src="images/blogs/radio_astronomy.png" alt="Radio Astronomy Blog"></div>
-        <div class="tile-desc">
+    <!-- ===== Thesis =====
+    <section id="thesis">
+      <h2>Current Thesis</h2>
+      <div class="card" style="padding:16px">
+        <h3 style="margin:0 0 6px">Disentangling SSL Audio Embeddings for Deepfake Detection (Master's Thesis)</h3>
+        <p style="margin:4px 0 10px;color:var(--muted)">Advised research 2025</p>
+        <p style="max-width:90ch">
+          I study how self-supervised audio models (WaveLM, Wav2Vec, HuBERT and fine-tuned variants) encode <strong>style, linguistics, emotion, and prosody</strong>. The goal is a Mixture-of-Experts (MoE) detector that <em>decorrelates</em> these factors so the system fully understands real speech regardless of fake quality. I prototype losses and regularizers that reshape the embedding space and probe what each expert captures. 
+        </p>
+        <div class="chips">
+          <span class="chip">MoE</span>
+          <span class="chip">WaveLM / W2V / HuBERT</span>
+          <span class="chip">Disentanglement</span>
+          <span class="chip">Audio Forensics</span>
+        </div>
+      </div>
+    </section> -->
+
+    <!-- ===== Projects ===== -->
+    <section id="projects">
+      <h2>Selected Projects</h2>
+      <div class="grid cols-3">
+        <article class="card proj">
+          <div class="thumb"><img src="images/projects/embeddings.png" alt="Contrastive Siamese demo" loading="lazy"></div>
+          <h3>Contrastive Learning with Siamese Network</h3>
+          <div class="tag">Apr 2025 · Representation Learning</div>
+          <p>Built a Siamese network on MNIST with contrastive loss to learn a 128-D embedding where similar digits are close and dissimilar ones far apart; includes a Tkinter+Plotly GUI for pairwise similarity, few-shot classification, and 3D embedding visualization.</p>
+          <div class="actions"><a href="https://github.com/JaskiratSudan/embeddings" target="_blank" rel="noopener">[Code]</a>
+          <div class="actions"><a href="https://www.youtube.com/watch?v=KHuWqnAgWN0" target="_blank" rel="noopener">[Presentation]</a></div>
+        </article>
+
+        <article class="card proj">
+          <div class="thumb"><img src="images/projects/mariokart_gif.gif" alt="Self-Driving Mario Kart gameplay" loading="lazy"></div>
+          <h3>Self-Driving Mario Kart (CNN-LSTM)</h3>
+          <div class="tag">Apr 2025 · Vision + Control</div>
+          <p>End-to-end agent using screen capture + CNN-LSTM for temporal understanding, controlling the Mupen64Plus emulator via keyboard events. Repo covers data collection, training, and autonomous play pipelines with usage instructions across OSes.</p>
+          <div class="actions"><a href="https://github.com/JaskiratSudan/Self-Driving-Mario-Kart-with-CNN-LSTM" target="_blank" rel="noopener">[Code]</a></div>
+        </article>
+
+        <article class="card proj">
+          <div class="thumb"><img src="images/projects/lowlight_segmentation_gif.gif" alt="Low-light segmentation results" loading="lazy"></div>
+          <h3>Low-Light Segmentation for Autonomous Driving</h3>
+          <div class="tag">Dec 2024 · Transfer Learning</div>
+          <p>Evaluated MobileNetV2-U-Net and Xception-U-Net on BDD100K with transfer learning and targeted fine-tuning for nighttime scenes; README reports metrics (e.g., Xception-U-Net Dice ≈0.90, strong low-light gains) and outlines preprocessing, losses (Dice/BCE), and results.</p>
+          <div class="actions"><a href="https://github.com/JaskiratSudan/Image-Segmentation-for-Autonomous-Driving-in-Low-Light-Conditions" target="_blank" rel="noopener">[Code]</a></div>
+        </article>
+
+        <article class="card proj">
+          <div class="thumb"><img src="images/projects/speech2img.png" alt="Speech to image generation demo" loading="lazy"></div>
+          <h3>Speech→Image with Latent Diffusion</h3>
+          <div class="tag">Dec 2024 · Diffusion Model</div>
+          <p>Pipeline that transcribes speech to text via Whisper and generates images using Stable Diffusion v2 fine-tuned with DreamBooth; README details motivation, dataset creation, training strategy (low LR, mixed precision), and links to presentation/demo.</p>
+          <div class="actions"><a href="https://github.com/JaskiratSudan/ece5831-2024-final-project" target="_blank" rel="noopener">[Code]</a>
+          <div class="actions"><a href="https://youtu.be/4edAK2OjUu4" target="_blank" rel="noopener">[Presentation]</a>
+          <div class="actions"><a href="https://youtu.be/gDksvHqDzNs" target="_blank" rel="noopener">[Demo]</a></div>
+        </article>
+
+        <article class="card proj">
+          <div class="thumb"><img src="images/projects/sam_gui.png" alt="Segment Anything desktop GUI" loading="lazy"></div>
+          <h3>Segment Anything Desktop GUI</h3>
+          <div class="tag">Feb 2025 · Image Segmentation</div>
+          <p>Lightweight Tkinter interface for Meta’s SAM: load checkpoint (ViT-H/L/B), add point/box/text prompts, and visualize segmentation with a progress indicator. Usage instructions and model download links are included.</p>
+          <div class="actions"><a href="https://github.com/JaskiratSudan/SAM_on_PC" target="_blank" rel="noopener">[Code]</a></div>
+        </article>
+
+        <article class="card proj">
+          <div class="thumb"><img src="images/projects/scae_gif.gif" alt="Scalable convolutional autoencoder demo" loading="lazy"></div>
+          <h3>Scalable Conv Autoencoder (SCA)</h3>
+          <div class="tag">Feb 2024 · Representation Learning</div>
+          <p>Trainable local autoencoder with a simple GUI to watch reconstructions evolve from the latent space; repo includes runnable scripts, requirements, and quick-start steps.</p>
+          <div class="actions"><a href="https://github.com/JaskiratSudan/Scalable_Convolutional_Autoencoder" target="_blank" rel="noopener">[Code]</a>
+          <div class="actions"><a href="https://youtu.be/mnxxFqswMfU" target="_blank" rel="noopener">[Presentation]</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+        <!-- ===== Publications ===== -->
+    <section id="publications" class="pubs-section">
+      <h2>Selected Publications</h2>
+    <!-- ViKey -->
+    <article class="pub-item">
+      <a class="pub-thumb" href="#" target="_blank" rel="noopener">
+        <img src="images/projects/ViKey.png" alt="ViKey visible-light DAC thumbnail"
+            onerror="this.src='https://via.placeholder.com/640x360?text=ViKey'">
+      </a>
+      <div class="pub-meta">
+        <h3 class="pub-title">ViKey: Secure Door Access Control Using Passive Visible Light Tags</h3>
+        <div class="pub-venue">IEEE MASS 2025</div>
+        <div class="pub-authors"><strong>Jaskirat Singh Sudan</strong>, et al.</div>
+        <p class="pub-blurb">
+          Low-cost, privacy-preserving door access control using visible-light backscatter.
+          Polarized birefringence tags create 3D, position-dependent color keys; the <$0.20 COTS prototype
+          achieves ~80% auth accuracy at 0.5 m.
+        </p>
+        <div class="pub-links">[<a href="#" target="_blank" rel="noopener">Paper</a>] [<a href="https://github.com/JaskiratSudan/ViKey" target="_blank" rel="noopener">Code</a>]</div>
+      </div>
+    </article>
+
+    <!-- EEG review -->
+    <article class="pub-item">
+      <a class="pub-thumb" href="https://www.iieta.org/journals/isi/paper/10.18280/isi.290124" target="_blank" rel="noopener">
+        <img src="images/pubs/eeg.jpg" alt="EEG artifact removal review thumbnail"
+            onerror="this.src='https://via.placeholder.com/640x360?text=EEG+Review'">
+      </a>
+      <div class="pub-meta">
+        <h3 class="pub-title">
+          <a href="https://www.iieta.org/journals/isi/paper/10.18280/isi.290124" target="_blank" rel="noopener">
+            A Review of EEG Artifact Removal Methods for Brain-Computer Interface Applications
+          </a>
+        </h3>
+        <div class="pub-venue">IIETA (ISI Journal), Feb 2024</div>
+        <div class="pub-authors"><strong>Jaskirat Singh Sudan</strong>, et al.</div>
+        <p class="pub-blurb">
+          Systematic review of EEG denoising for BCI. Hybrid ICA + wavelet methods consistently suppress artifacts
+          while preserving neural signal quality, pointing toward adaptive, real-time pipelines.
+        </p>
+        <div class="pub-links">[<a href="https://www.iieta.org/journals/isi/paper/10.18280/isi.290124" target="_blank" rel="noopener">Paper</a>]</div>
+      </div>
+    </article>
+
+
+    <!-- ===== Blog (cards) ===== -->
+    <section id="blog">
+      <h2>Blogs</h2>
+      <div class="grid cols-3">
+        <article class="card post">
           <h3>Radio Astronomy</h3>
-          <span class="tile-meta">Mar 2023</span>
-        </div>
-      </a>
-      <a class="project-tile" href="https://medium.com/@jaskiratsinghsudan/most-important-algorithm-that-averted-a-nuclear-conflict-9dc97f5b259a" target="_blank">
-        <div class="image-container"><img src="images/blogs/nuclear_conflict.png" alt="Nuclear Conflict Algorithm Blog"></div>
-        <div class="tile-desc">
+          <div class="tag">Mar 2023</div>
+          <p>How radio telescopes see what eyes can’t, revealing pulsars, black holes, and interstellar gas to map the invisible universe.</p>
+          <div class="actions">
+            <a href="https://medium.com/@jaskiratsinghsudan/radio-astronomy-4247b744f419" target="_blank" rel="noopener">Read</a>
+          </div>
+        </article>
+
+        <article class="card post">
           <h3>Most Important Algorithm That Averted a Nuclear Conflict</h3>
-          <span class="tile-meta">Nov 2023</span>
-        </div>
-      </a>
+          <div class="tag">Nov 2023</div>
+          <p>How an early-warning algorithm and crucial human judgment prevented a Cold War false alarm from escalating into catastrophe.</p>
+          <div class="actions">
+            <a href="https://medium.com/@jaskiratsinghsudan/most-important-algorithm-that-averted-a-nuclear-conflict-9dc97f5b259a" target="_blank" rel="noopener">Read</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+
+    <!-- ===== Footer ===== -->
+    <div class="footer">
+      <div>© <span id="year"></span> Jaskirat Singh Sudan · Last updated <span id="updated"></span></div>
     </div>
-  </section>
-
-  <footer>
-    <p><a href="https://github.com/JaskiratSudan" target="_blank">GitHub</a> • <a href="jaskiratsinghsudan@gmail.com">jaskiratsinghsudan@gmail.com</a></p>
-  </footer>
-
-  <button id="back-to-top" title="Back to Top">↑</button>
-  <script src="script.js"></script>
+  </main>
 </body>
 </html>
