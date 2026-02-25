@@ -213,7 +213,7 @@ html[data-theme='light'] .x-follow { background: #000; }
   gap: 10px;
 }
 .card .thumb {
-  aspect-ratio: 16/9;
+  aspect-ratio: auto;
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid var(--border);
@@ -223,7 +223,8 @@ html[data-theme='light'] .x-follow { background: #000; }
 .card .thumb img, .card .thumb video {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  height: auto;
   display: block;
 }
 
