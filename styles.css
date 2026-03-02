@@ -32,6 +32,7 @@ html[data-theme='light'] {
    ========================== */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
+
 body {
   margin: 0;
   background: var(--bg);
@@ -39,9 +40,17 @@ body {
   font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
   line-height: 1.6;
 }
+
 a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; }
-section { scroll-margin-top: 80px; }
+
+section { 
+  scroll-margin-top: 80px;
+  margin: 42px 0;
+}
+
+h1 { font-size: 34px; line-height: 1.15; margin-bottom: 6px; }
+h2 { font-size: 28px; margin-bottom: 16px; }
 
 /* ==========================
    Header & Navigation
@@ -54,6 +63,7 @@ header {
   backdrop-filter: saturate(1.4) blur(8px);
   border-bottom: 1px solid var(--border);
 }
+
 .nav {
   max-width: 1280px;
   margin: 0 auto;
@@ -62,11 +72,13 @@ header {
   gap: 18px;
   padding: 10px 20px;
 }
+
 .nav a {
   font-weight: 600;
   color: var(--text);
   opacity: 0.9;
 }
+
 .nav a:hover { opacity: 1; }
 .nav .spacer { flex: 1; }
 
@@ -80,6 +92,7 @@ header {
   cursor: pointer;
   font-weight: 600;
 }
+
 .btn-toggle:hover { filter: brightness(1.05); }
 
 /* ==========================
@@ -91,14 +104,6 @@ header {
   padding: 0 20px;
 }
 
-/* Make each major section breathe a bit */
-section {
-  margin: 42px 0;
-}
-
-h1 { font-size: 34px; line-height: 1.15; margin-bottom: 6px; }
-h2 { font-size: 28px; margin-bottom: 16px; }
-
 /* ==========================
    Hero (About)
    ========================== */
@@ -108,13 +113,8 @@ h2 { font-size: 28px; margin-bottom: 16px; }
   gap: 32px;
   align-items: center;
   justify-content: center;
-  
-  /* Make About section fill the full viewport height */
   min-height: 100vh;
-  
-  /* Vertically center content */
   align-content: center;
-  /* padding-top: 100px; optional: to offset sticky header */
   padding-bottom: 200px;
 }
 
@@ -136,7 +136,14 @@ h2 { font-size: 28px; margin-bottom: 16px; }
 
 .subtitle { color: var(--muted); margin-bottom: 10px; }
 .meta { display: flex; flex-wrap: wrap; gap: 12px; color: var(--muted); }
-.chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
 .chip {
   padding: 6px 10px;
   border: 1px solid var(--border);
@@ -153,14 +160,17 @@ h2 { font-size: 28px; margin-bottom: 16px; }
   margin-top: 16px;
   text-align: center;
 }
+
 .profile-links .row {
   font-size: 18px;
   font-weight: 600;
   line-height: 1.6;
   margin: 4px 0;
 }
+
 .profile-links a { color: var(--link); }
 .profile-links a:hover { text-decoration: underline; }
+
 .profile-links .sep {
   color: var(--link);
   opacity: 0.9;
@@ -182,8 +192,14 @@ h2 { font-size: 28px; margin-bottom: 16px; }
   box-shadow: var(--shadow);
   transition: transform .15s ease, filter .15s ease;
 }
+
 html[data-theme='light'] .x-follow { background: #000; }
-.x-follow:hover { transform: translateY(-1px); filter: brightness(1.05); }
+
+.x-follow:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+}
+
 .x-icon { width: 18px; height: 18px; display: block; }
 
 /* ==========================
@@ -195,6 +211,15 @@ html[data-theme='light'] .x-follow { background: #000; }
   border-radius: 16px;
   box-shadow: var(--shadow);
 }
+
+/* ==========================
+   Thesis Card Custom Size
+   ========================== */
+.thesis-card {
+  max-width: 820px;   /* control width here */
+  margin: 0 auto;     /* center it */
+}
+
 .grid { display: grid; gap: 24px; }
 .grid.cols-2 { grid-template-columns: repeat(2, 1fr); }
 .grid.cols-3 { grid-template-columns: repeat(3, 1fr); }
@@ -205,26 +230,30 @@ html[data-theme='light'] .x-follow { background: #000; }
   flex-direction: column;
   gap: 10px;
 }
+
 .proj h3, .post h3 { font-size: 17px; margin: 0; }
 .proj .tag, .post .tag { font-size: 12px; color: var(--muted); }
+
 .proj .actions, .post .actions {
   margin-top: auto;
   display: flex;
   gap: 10px;
 }
+
 .card .thumb {
-  aspect-ratio: auto;
+  aspect-ratio: 16/9;
   border-radius: 12px;
   overflow: hidden;
   border: 1px solid var(--border);
   background: var(--panel);
   margin-bottom: 10px;
 }
-.card .thumb img, .card .thumb video {
+
+.card .thumb img,
+.card .thumb video {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  height: auto;
+  object-fit: cover;
   display: block;
 }
 
@@ -232,12 +261,14 @@ html[data-theme='light'] .x-follow { background: #000; }
    Publications
    ========================== */
 .pubs { display: grid; gap: 28px; }
+
 .pub-item {
   display: grid;
   grid-template-columns: 360px 1fr;
   gap: 18px;
   align-items: start;
 }
+
 .pub-thumb {
   border: 1px solid var(--border);
   border-radius: 14px;
@@ -246,8 +277,19 @@ html[data-theme='light'] .x-follow { background: #000; }
   background: var(--panel);
   aspect-ratio: 16/9;
 }
-.pub-thumb img { width: 100%; height: 100%; object-fit: cover; }
-.pub-meta { display: flex; flex-direction: column; gap: 6px; }
+
+.pub-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pub-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
 .pub-title { font-size: 20px; line-height: 1.25; }
 .pub-title a { color: var(--text); }
 .pub-venue, .pub-authors { color: var(--muted); }
@@ -277,14 +319,17 @@ html[data-theme='light'] .x-follow { background: #000; }
     gap: 16px;
     min-height: auto;
   }
+
   .avatar { width: 180px; height: 180px; }
-  .grid.cols-2, .grid.cols-3 { grid-template-columns: 1fr; }
+  .grid.cols-2,
+  .grid.cols-3 { grid-template-columns: 1fr; }
   .profile-links { max-width: 100%; }
 }
-.pub-blurb{
+
+.pub-blurb {
   color: var(--muted);
   font-size: 14px;
   line-height: 1.5;
   margin-top: 6px;
-  max-width: 70ch; /* keeps lines readable */
+  max-width: 70ch;
 }

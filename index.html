@@ -15,8 +15,7 @@
   <header>
     <nav class="nav">
       <a href="#about">About</a>
-      <a href="#thesis">Master’s Thesis</a>
-      <a href="#projects">Projects</a>
+      <a href="#projects">Research and Projects</a>
       <a href="#publications">Publications</a>
       <a href="#blog">Blogs</a>
       <span class="spacer"></span>
@@ -58,36 +57,32 @@
       </div>
     </section>
 
-    <!-- ===== Thesis ===== -->
-    <section id="thesis">
-      <h2>Master’s Thesis (In Progress)</h2>
-      <div class="card" style="padding:16px">
-        <div class="thumb">
-          <img src="images/thesis/SupCon_model.png" alt="SupCon Model" loading="lazy" onerror="this.src='https://via.placeholder.com/640x360?text=SupCon_model'"></div>
-        <h3 style="margin:0 0 6px">Contrastive Representation Shaping for Generalizable Deepfake Detection</h3>
-        <p style="margin:4px 0 10px;color:var(--muted)">ISSF Lab || UMich – Dearborn || Aug 2025 – Present</p>
-
-        <p style="max-width:90ch;margin:0 0 10px">
-          My thesis investigates how training objectives shape embedding geometry for robustness and generalization on OOD (out-of-domain) datasets.
-          I develop a two-stage pipeline that first learns discriminative embeddings using supervised contrastive learning and then trains a lightweight classifier.
-        </p>
-
-        <ul style="margin:0 0 10px; padding-left:18px; color:var(--text)">
-          <li>Exploring similarity choices (cosine vs geodesic-style similarity), hard-negative mining, and uniformity-style regularization</li>
-          <li>Evaluating generalization across ASVspoof-style benchmarks and in-the-wild datasets</li>
-          <li>Running experiments on UMich Great Lakes (HPC) with SLURM and multi-GPU PyTorch training</li>
-        </ul>
-
-        <div class="actions">
-          <a href="https://github.com/JaskiratSudan/wav2vec_contr_loss" target="_blank" rel="noopener">[Code]</a>
-        </div>
-      </div>
-    </section>
-
     <!-- ===== Projects ===== -->
     <section id="projects">
-      <h2>Selected Projects</h2>
+      <h2>Research and Projects</h2>
       <div class="grid cols-3">
+        <article class="card proj">
+          <div class="thumb">
+            <img src="images/thesis/3-MT Competition.png" 
+                alt="Contrastive Representation Shaping Thesis" 
+                loading="lazy"
+                onerror="this.src='https://via.placeholder.com/640x360?text=Thesis'">
+          </div>
+
+          <h3>A Self-Paced Contrastive Curriculum for Deepfake Audio Detection</h3>
+          <div class="tag">Master’s Thesis · Aug 2025–Present || Representation Learning</div>
+
+          <p>
+            Investigates how supervised contrastive learning regularizes latent representations from self-supervised speech encoders to improve deepfake audio detection robustness and out-of-domain generalization.
+          </p>
+
+          <div class="actions">
+            <a href="https://www.youtube.com/watch?v=4mwGd3OGtL8" target="_blank" rel="noopener">[Presentation]</a>
+            <a href="https://drive.google.com/file/d/1i0ph2SIJjZBTZPY2X3dDE4qqA_hdwh-C/view?usp=sharing" target="_blank" rel="noopener">[Poster]</a>
+            <a href="https://github.com/JaskiratSudan/wav2vec_contr_loss" target="_blank" rel="noopener">[Code]</a>
+          </div>
+        </article>
+
         <article class="card proj">
           <div class="thumb">
             <img src="images/projects/slim.png" alt="SLIM replication" loading="lazy" onerror="this.src='https://via.placeholder.com/640x360?text=SLIM+Replication'"></div>
