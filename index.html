@@ -1,281 +1,538 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en"
+  x-data="{
+    dark: (() => {
+      const s = localStorage.getItem('theme');
+      return s ? s === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+    })()
+  }"
+  :class="{ 'dark': dark }"
+  x-init="$watch('dark', v => localStorage.setItem('theme', v ? 'dark' : 'light'))">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Jaskirat Singh Sudan</title>
-  <meta name="description" content="Personal research website of Jaskirat Singh Sudan." />
-  <link rel="stylesheet" href="styles.css?v=6">
+  <meta name="description" content="MS AI student at University of Michigan–Dearborn. Contrastive representation learning, audio deepfake detection, speech ML.">
 
-  <script src="main.js" defer></script>
+  <!-- Prevent dark-mode flash -->
+  <script>
+    (function(){
+      var s=localStorage.getItem('theme');
+      if(s==='dark'||(!s&&window.matchMedia('(prefers-color-scheme:dark)').matches))
+        document.documentElement.classList.add('dark');
+    })();
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- AOS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: { extend: { fontFamily: { sans: ['Inter','system-ui','sans-serif'] } } }
+    }
+  </script>
+
+  <!-- Alpine -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3/dist/cdn.min.js"></script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    [x-cloak] { display: none !important; }
+  </style>
 </head>
 
-<body>
-  <!-- ===== Top Navigation ===== -->
-  <header>
-    <nav class="nav">
-      <a href="#about">About</a>
-      <a href="#projects">Research and Projects</a>
-      <a href="#publications">Publications</a>
-      <a href="#blog">Blogs</a>
-      <span class="spacer"></span>
-      <button id="themeToggle" class="btn-toggle" aria-label="Toggle color theme" aria-pressed="false" title="Toggle theme">☾</button>
-    </nav>
+<body class="bg-[#f9f9f7] dark:bg-[#0f0f0f] text-[#111111] dark:text-[#e8e8e4] antialiased">
+
+  <!-- ===== Navbar ===== -->
+  <header class="sticky top-0 z-50 bg-[#f9f9f7]/85 dark:bg-[#0f0f0f]/85 backdrop-blur-[8px] border-b border-[#e2e2de] dark:border-[#2a2a28]">
+    <div class="max-w-[1100px] mx-auto px-6 sm:px-12 h-14 flex items-center">
+      <a href="#" class="text-sm font-medium text-[#111] dark:text-[#e8e8e4]">Jaskirat Sudan</a>
+      <div class="ml-auto flex items-center gap-5">
+        <nav class="hidden sm:flex items-center gap-5 text-sm text-gray-500 dark:text-gray-400">
+          <a href="#research"     class="hover:text-[#111] dark:hover:text-[#e8e8e4] transition-colors">Research</a>
+          <a href="#projects"     class="hover:text-[#111] dark:hover:text-[#e8e8e4] transition-colors">Projects</a>
+          <a href="#experience"   class="hover:text-[#111] dark:hover:text-[#e8e8e4] transition-colors">Experience</a>
+          <a href="#publications" class="hover:text-[#111] dark:hover:text-[#e8e8e4] transition-colors">Publications</a>
+          <a href="#blog"         class="hover:text-[#111] dark:hover:text-[#e8e8e4] transition-colors">Blog</a>
+        </nav>
+        <button @click="dark = !dark"
+          class="w-8 h-8 flex items-center justify-center rounded-[6px] border border-[#e2e2de] dark:border-[#2a2a28] text-gray-500 dark:text-gray-400 hover:text-[#111] dark:hover:text-[#e8e8e4] transition-colors"
+          :aria-label="dark ? 'Switch to light mode' : 'Switch to dark mode'">
+          <svg x-show="!dark" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+          </svg>
+          <svg x-show="dark" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
   </header>
 
-  <main class="container">
-    <!-- ===== Hero ===== -->
-    <section id="about" class="hero">
-      <div class="photo-column">
-      <img class="avatar" src="images/jaskirat.jpeg" alt="Portrait of Jaskirat Singh Sudan" onerror="this.src='https://via.placeholder.com/300x300?text=JS'" />
-      
-      <!-- Links directly under the avatar -->
-      <div class="profile-links">
-        <div class="row">
-          <a href="https://github.com/JaskiratSudan" target="_blank" rel="noopener">Github</a>
-          <span class="sep">|</span>
-          <a href="https://www.linkedin.com/in/jaskirat-sudan/" target="_blank">LinkedIn</a>
-          <span class="sep">|</span>
-          <a href="https://www.youtube.com/channel/UCAMOPWHezU_MntFoAlkS74A" target="_blank" rel="noopener">Youtube</a>
+  <!-- ===== Hero ===== -->
+  <section id="about" class="max-w-[1100px] mx-auto px-6 sm:px-12 pt-[72px] pb-[60px]">
+    <div class="grid grid-cols-1 sm:grid-cols-[1fr_160px] items-center gap-8">
+
+      <div class="sm:order-1">
+        <h1 class="text-[28px] font-medium tracking-tight leading-tight">Jaskirat Singh Sudan</h1>
+        <p class="mt-1.5 text-sm text-gray-500 dark:text-gray-400">M.S. in Artificial Intelligence ('26) · University of Michigan–Dearborn</p>
+
+        <div class="flex flex-wrap gap-[8px] mt-4">
+          <span class="text-[12px] px-3 py-1 rounded-[6px] border border-[#e2e2de] dark:border-[#2a2a28] text-gray-500 dark:text-gray-400">Representation Learning</span>
+          <span class="text-[12px] px-3 py-1 rounded-[6px] border border-[#e2e2de] dark:border-[#2a2a28] text-gray-500 dark:text-gray-400">Audio Deepfake Detection</span>
+          <span class="text-[12px] px-3 py-1 rounded-[6px] border border-[#e2e2de] dark:border-[#2a2a28] text-gray-500 dark:text-gray-400">Speech + Vision ML</span>
         </div>
-        <div class="row">
-          <a href="https://scholar.google.com/citations?user=rgzvwiAAAAAJ&hl=en&authuser=1" target="_blank" rel="noopener">Google Scholar</a>
+
+        <div class="flex flex-wrap items-center gap-x-2 gap-y-1 mt-4 text-sm">
+          <a href="https://github.com/JaskiratSudan" target="_blank" rel="noopener" class="text-blue-600 dark:text-blue-400 hover:underline">GitHub</a>
+          <span class="text-gray-300 dark:text-gray-600 select-none">·</span>
+          <a href="https://www.linkedin.com/in/jaskirat-sudan/" target="_blank" rel="noopener" class="text-blue-600 dark:text-blue-400 hover:underline">LinkedIn</a>
+          <span class="text-gray-300 dark:text-gray-600 select-none">·</span>
+          <a href="https://scholar.google.com/citations?user=rgzvwiAAAAAJ&hl=en&authuser=1" target="_blank" rel="noopener" class="text-blue-600 dark:text-blue-400 hover:underline">Google Scholar</a>
+          <span class="text-gray-300 dark:text-gray-600 select-none">·</span>
+          <a href="https://www.youtube.com/channel/UCAMOPWHezU_MntFoAlkS74A" target="_blank" rel="noopener" class="text-blue-600 dark:text-blue-400 hover:underline">YouTube</a>
         </div>
+
+        <div class="mt-5 space-y-3 max-w-[62ch]">
+          <p class="text-[15px] leading-[1.7] text-gray-600 dark:text-gray-300">
+            MS AI student at the University of Michigan–Dearborn (graduating May 2026), researching contrastive representation learning for audio deepfake detection at the <a href="https://issf.umd.umich.edu/" target="_blank" rel="noopener" class="text-blue-600 dark:text-blue-400 hover:underline">ISSF Lab</a> under Prof. Hafiz Malik. My thesis is a controlled study of how similarity function choice and negative scaling affect OOD generalization in SSL speech models for deepfake detection tasks achieving 0.25% EER on ASVspoof 2019 and 8.3% on In-the-Wild. My background spans computer vision (segmentation, behavioral cloning, Siamese networks), signal processing (GMRT radio data, star navigation), and a published IEEE paper on optical authentication (ViKey, IEEE MASS 2025). I'm interested in what signals encode about the physical world and how to build models that learn that structure robustly.
+          </p>
+          <p class="text-[15px] leading-[1.7] text-gray-400 dark:text-gray-500">
+            Open to full-time roles in audio ML, speech AI, and representation learning starting May 2026.
+          </p>
+        </div>
+      </div>
+
+      <div class="order-first sm:order-2 flex justify-center sm:justify-end">
+        <img src="images/jaskirat.jpeg" alt="Jaskirat Singh Sudan"
+          class="w-[140px] h-[140px] rounded-full object-cover border-2 border-[#e2e2de] dark:border-[#2a2a28]"
+          onerror="this.src='https://via.placeholder.com/140x140?text=JS'">
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== Research ===== -->
+  <!--
+    All 3 cards share the same template: image left (200px, full card height), content right.
+    Thesis card gets a 3px blue left accent border.
+    Gap to Projects is intentionally tighter (pb-[40px]).
+  -->
+  <section id="research" class="max-w-[1100px] mx-auto px-6 sm:px-12 pt-[72px] pb-[40px] border-t border-[#e2e2de] dark:border-[#2a2a28]" data-aos="fade-up">
+    <p class="text-[13px] font-medium uppercase tracking-[0.06em] text-gray-400 dark:text-gray-500 mb-6">Research</p>
+
+    <div class="space-y-4">
+
+      <!-- ── Thesis card (blue left accent) ── -->
+      <div class="border border-[#e2e2de] dark:border-[#2a2a28] rounded-[10px] overflow-hidden"
+           style="border-left: 3px solid #2563eb;">
+        <div class="flex flex-col sm:flex-row">
+          <!-- Image: fixed height on mobile, stretches to full card height on desktop -->
+          <div class="sm:w-[200px] flex-shrink-0 h-[140px] sm:h-auto bg-[#f0f0ee] dark:bg-[#1a1a18] overflow-hidden">
+            <img src="images/thesis/3-MT Competition.png"
+              alt="Thesis — Contrastive Audio Deepfake Detection"
+              class="w-full h-full object-cover object-top"
+              loading="lazy"
+              onerror="this.src='https://via.placeholder.com/200x300?text=Thesis'">
+          </div>
+          <div class="p-5 flex-1 flex flex-col">
+            <div class="flex flex-wrap items-center gap-2 mb-2">
+              <span class="text-[11px] px-2 py-0.5 rounded-[6px] bg-blue-600/10 text-blue-600 dark:text-blue-400 font-medium">Master's Thesis</span>
+              <span class="text-[11px] px-2 py-0.5 rounded-[6px] border border-[#e2e2de] dark:border-[#2a2a28] text-gray-500 dark:text-gray-400">Aug 2025–Present</span>
+              <span class="text-[11px] px-2 py-0.5 rounded-[6px] border border-[#e2e2de] dark:border-[#2a2a28] text-gray-500 dark:text-gray-400">Representation Learning</span>
+            </div>
+            <h3 class="text-[15px] font-medium leading-snug mb-2">Supervised Contrastive Learning with Cross-Batch Negatives for Deepfake Audio Detection</h3>
+            <p class="text-[13px] text-gray-500 dark:text-gray-400 leading-relaxed flex-1">
+              Controlled study of cosine vs. geodesic similarity and cross-batch negative scaling (|Q|=2048) over frozen XLS-R-300M. Stage 1: SupCon projection head. Stage 2: linear BCE classifier. Ablations: temperature sweep, queue-size sweep, UMAP geometry. Evaluated across FakeXpose and FamousFigures OOD corpora.
+            </p>
+            <div class="flex flex-wrap gap-1.5 mt-3">
+              <span class="text-[11px] px-2 py-0.5 rounded-[6px] bg-blue-600/10 text-blue-600 dark:text-blue-400">0.25% EER · ASVspoof 2019</span>
+              <span class="text-[11px] px-2 py-0.5 rounded-[6px] bg-blue-600/10 text-blue-600 dark:text-blue-400">8.3% EER · In-the-Wild</span>
+              <span class="text-[11px] px-2 py-0.5 rounded-[6px] bg-blue-600/10 text-blue-600 dark:text-blue-400">0.8% / 6.6% · pooled corpus</span>
+            </div>
+            <div class="flex flex-wrap gap-4 mt-3">
+              <a href="https://www.youtube.com/watch?v=4mwGd3OGtL8" target="_blank" rel="noopener" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Presentation →</a>
+              <a href="https://drive.google.com/file/d/1i0ph2SIJjZBTZPY2X3dDE4qqA_hdwh-C/view?usp=sharing" target="_blank" rel="noopener" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Poster →</a>
+              <a href="https://github.com/JaskiratSudan/wav2vec_contr_loss" target="_blank" rel="noopener" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Code →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SLIM card ── -->
+      <div class="border border-[#e2e2de] dark:border-[#2a2a28] rounded-[10px] overflow-hidden">
+        <div class="flex flex-col sm:flex-row">
+          <div class="sm:w-[200px] flex-shrink-0 h-[140px] sm:h-auto bg-[#f0f0ee] dark:bg-[#1a1a18] overflow-hidden">
+            <img src="images/projects/slim.png"
+              alt="SLIM — two-stage SSL deepfake detection replication"
+              class="w-full h-full object-cover object-top"
+              loading="lazy"
+              onerror="this.src='https://via.placeholder.com/200x300?text=SLIM'">
+          </div>
+          <div class="p-5 flex-1 flex flex-col">
+            <div class="flex flex-wrap items-center gap-2 mb-2">
+              <span class="text-[11px] px-2 py-0.5 rounded-[6px] border border-[#e2e2de] dark:border-[#2a2a28] text-gray-500 dark:text-gray-400">Oct 2025</span>
+              <span class="text-[11px] px-2 py-0.5 rounded-[6px] border border-[#e2e2de] dark:border-[#2a2a28] text-gray-500 dark:text-gray-400">Self-Supervised Learning</span>
+            </div>
+            <h3 class="text-[15px] font-medium leading-snug mb-2">Speaker-Specific SLIM Replication (From-Scratch)</h3>
+            <p class="text-[13px] text-gray-500 dark:text-gray-400 leading-relaxed flex-1">
+              From-scratch replication of a two-stage SSL deepfake detection framework using Wav2Vec2 and WavLM backbone variants. Stage 1 learns compressed style/linguistic representations; Stage 2 trains a classifier with waveform augmentations (noise, reverb, SpecAugment). Built per-speaker embedding diagnostics and UMAP/t-SNE visualizations to surface entity-level failure modes invisible in aggregate EER.
+            </p>
+            <div class="mt-3">
+              <span class="inline-flex items-center text-[11px] px-2 py-0.5 rounded-[6px] bg-[#f0f0ee] dark:bg-[#1a1a18] text-gray-400 dark:text-gray-500 border border-[#e2e2de] dark:border-[#2a2a28] cursor-default select-none">
+                Code: Private (ISSF Lab)
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ViKey card ── -->
+      <div class="border border-[#e2e2de] dark:border-[#2a2a28] rounded-[10px] overflow-hidden">
+        <div class="flex flex-col sm:flex-row">
+          <div class="sm:w-[200px] flex-shrink-0 h-[140px] sm:h-auto bg-[#f0f0ee] dark:bg-[#1a1a18] overflow-hidden">
+            <img src="images/publications/ViKey.png"
+              alt="ViKey — visible-light backscatter authentication"
+              class="w-full h-full object-cover object-top"
+              loading="lazy"
+              onerror="this.src='https://via.placeholder.com/200x300?text=ViKey'">
+          </div>
+          <div class="p-5 flex-1 flex flex-col">
+            <div class="flex flex-wrap items-center gap-2 mb-2">
+              <span class="text-[11px] px-2 py-0.5 rounded-[6px] bg-blue-600/10 text-blue-600 dark:text-blue-400 font-medium">IEEE MASS 2025</span>
+              <span class="text-[11px] px-2 py-0.5 rounded-[6px] border border-[#e2e2de] dark:border-[#2a2a28] text-gray-500 dark:text-gray-400">Oct 2025</span>
+              <span class="text-[11px] px-2 py-0.5 rounded-[6px] border border-[#e2e2de] dark:border-[#2a2a28] text-gray-500 dark:text-gray-400">Co-Primary Author</span>
+              <span class="text-[11px] px-2 py-0.5 rounded-[6px] border border-[#e2e2de] dark:border-[#2a2a28] text-gray-500 dark:text-gray-400">Published</span>
+            </div>
+            <h3 class="text-[15px] font-medium leading-snug mb-2">ViKey: Secure Door Access Control Using Passive Visible Light Tags</h3>
+            <p class="text-[13px] text-gray-500 dark:text-gray-400 leading-relaxed flex-1">
+              Proposed the first passive visible light tag for door access control, exploiting polarized birefringence in layered transparent tapes to generate 3D position-dependent color patterns as unclonable keys. Conducted a systematic case study of tag shape, tape layers, and stacking sequences, and designed a real-time CV pipeline using per-channel SIFT, FLANN matching, RANSAC geometric verification, and temporal consistency checks achieving 90.5% accuracy at 0.5m and &lt;100ms latency without any deep learning.
+            </p>
+            <div class="flex flex-wrap gap-1.5 mt-3">
+              <span class="text-[11px] px-2 py-0.5 rounded-[6px] bg-blue-600/10 text-blue-600 dark:text-blue-400">90.5% accuracy @ 0.5m</span>
+              <span class="text-[11px] px-2 py-0.5 rounded-[6px] bg-blue-600/10 text-blue-600 dark:text-blue-400">&lt;100ms latency</span>
+              <span class="text-[11px] px-2 py-0.5 rounded-[6px] bg-blue-600/10 text-blue-600 dark:text-blue-400">$0.20 tag cost</span>
+            </div>
+            <div class="flex flex-wrap gap-4 mt-3">
+              <a href="https://ieeexplore.ieee.org/document/11206290" target="_blank" rel="noopener" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Paper →</a>
+              <a href="https://github.com/JaskiratSudan/ViKey" target="_blank" rel="noopener" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Code →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== Projects ===== -->
+  <section id="projects" class="max-w-[1100px] mx-auto px-6 sm:px-12 pt-[40px] pb-[72px] border-t border-[#e2e2de] dark:border-[#2a2a28]" data-aos="fade-up">
+    <p class="text-[13px] font-medium uppercase tracking-[0.06em] text-gray-400 dark:text-gray-500 mb-6">Projects</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+      <article class="border border-[#e2e2de] dark:border-[#2a2a28] rounded-[10px] overflow-hidden flex flex-col">
+        <div class="h-[140px] bg-[#f0f0ee] dark:bg-[#1a1a18] overflow-hidden">
+          <img src="images/projects/embeddings.png" alt="Siamese Network" class="w-full h-full object-cover" loading="lazy">
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <span class="text-[11px] text-gray-400 dark:text-gray-500 mb-1.5">Apr 2025 · Representation Learning</span>
+          <h3 class="text-sm font-medium leading-snug">Contrastive Learning with Siamese Network</h3>
+          <p class="text-[12px] text-gray-500 dark:text-gray-400 mt-1.5 leading-relaxed flex-1">128-D MNIST embedding space with 99% pair accuracy; Tkinter + Plotly GUI for few-shot classification and 3D PCA visualization.</p>
+          <div class="flex gap-3 mt-3">
+            <a href="https://github.com/JaskiratSudan/embeddings" target="_blank" rel="noopener" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Code →</a>
+            <a href="https://www.youtube.com/watch?v=KHuWqnAgWN0" target="_blank" rel="noopener" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Demo →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="border border-[#e2e2de] dark:border-[#2a2a28] rounded-[10px] overflow-hidden flex flex-col">
+        <div class="h-[140px] bg-[#f0f0ee] dark:bg-[#1a1a18] overflow-hidden">
+          <img src="images/projects/mariokart_gif.gif" alt="Mario Kart" class="w-full h-full object-cover" loading="lazy">
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <span class="text-[11px] text-gray-400 dark:text-gray-500 mb-1.5">Apr 2025 · Behavioral Cloning</span>
+          <h3 class="text-sm font-medium leading-snug">Self-Driving Mario Kart (CNN-LSTM)</h3>
+          <p class="text-[12px] text-gray-500 dark:text-gray-400 mt-1.5 leading-relaxed flex-1">CNN-LSTM trained on 50K frame-action pairs at ≤60ms emulator latency. 94% action accuracy, autonomous lap completion.</p>
+          <div class="flex gap-3 mt-3">
+            <a href="https://github.com/JaskiratSudan/Self-Driving-Mario-Kart-with-CNN-LSTM" target="_blank" rel="noopener" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Code →</a>
+            <a href="https://docs.google.com/presentation/d/1UtKw0DDGr7NCGtUhuMg5wBl5RzdGoCxz/edit?usp=sharing" target="_blank" rel="noopener" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Slides →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="border border-[#e2e2de] dark:border-[#2a2a28] rounded-[10px] overflow-hidden flex flex-col">
+        <div class="h-[140px] bg-[#f0f0ee] dark:bg-[#1a1a18] overflow-hidden">
+          <img src="images/projects/lowlight_segmentation_gif.gif" alt="Low-Light Segmentation" class="w-full h-full object-cover" loading="lazy">
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <span class="text-[11px] text-gray-400 dark:text-gray-500 mb-1.5">Nov 2024 · Transfer Learning</span>
+          <h3 class="text-sm font-medium leading-snug">Low-Light Semantic Segmentation</h3>
+          <p class="text-[12px] text-gray-500 dark:text-gray-400 mt-1.5 leading-relaxed flex-1">Xception U-Net Dice 0.08→0.90 on BDD100K nighttime. MobileNetV2 U-Net benchmarked for accuracy/compute tradeoff.</p>
+          <div class="flex gap-3 mt-3">
+            <a href="https://github.com/JaskiratSudan/Image-Segmentation-for-Autonomous-Driving-in-Low-Light-Conditions" target="_blank" rel="noopener" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Code →</a>
+            <a href="https://docs.google.com/presentation/d/1FM82YZlmMA2dU13X1tCiq8f-isWNx0N_PM08XwcI8Zw/edit?usp=sharing" target="_blank" rel="noopener" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Slides →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="border border-[#e2e2de] dark:border-[#2a2a28] rounded-[10px] overflow-hidden flex flex-col">
+        <div class="h-[140px] bg-[#f0f0ee] dark:bg-[#1a1a18] overflow-hidden">
+          <img src="images/projects/speech2img.png" alt="Speech to Image" class="w-full h-full object-cover" loading="lazy">
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <span class="text-[11px] text-gray-400 dark:text-gray-500 mb-1.5">Dec 2024 · Diffusion / Multimodal</span>
+          <h3 class="text-sm font-medium leading-snug">Speech→Image with Latent Diffusion</h3>
+          <p class="text-[12px] text-gray-500 dark:text-gray-400 mt-1.5 leading-relaxed flex-1">Whisper ASR + DreamBooth-fine-tuned Stable Diffusion v2 with mixed-precision training and prior preservation loss.</p>
+          <div class="flex gap-3 mt-3">
+            <a href="https://github.com/JaskiratSudan/ece5831-2024-final-project" target="_blank" rel="noopener" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Code →</a>
+            <a href="https://youtu.be/4edAK2OjUu4" target="_blank" rel="noopener" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Talk →</a>
+            <a href="https://youtu.be/gDksvHqDzNs" target="_blank" rel="noopener" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Demo →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="border border-[#e2e2de] dark:border-[#2a2a28] rounded-[10px] overflow-hidden flex flex-col">
+        <div class="h-[140px] bg-[#f0f0ee] dark:bg-[#1a1a18] overflow-hidden">
+          <img src="images/projects/sam_gui.png" alt="SAM GUI" class="w-full h-full object-cover" loading="lazy">
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <span class="text-[11px] text-gray-400 dark:text-gray-500 mb-1.5">Feb 2025 · Image Segmentation</span>
+          <h3 class="text-sm font-medium leading-snug">Segment Anything Desktop GUI</h3>
+          <p class="text-[12px] text-gray-500 dark:text-gray-400 mt-1.5 leading-relaxed flex-1">Tkinter interface for SAM (ViT-H/L/B). Point, box, and text prompts with real-time mask visualization on consumer hardware.</p>
+          <div class="flex gap-3 mt-3">
+            <a href="https://github.com/JaskiratSudan/SAM_on_PC" target="_blank" rel="noopener" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Code →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="border border-[#e2e2de] dark:border-[#2a2a28] rounded-[10px] overflow-hidden flex flex-col">
+        <div class="h-[140px] bg-[#f0f0ee] dark:bg-[#1a1a18] overflow-hidden">
+          <img src="images/projects/scae_gif.gif" alt="Scalable Conv Autoencoder" class="w-full h-full object-cover" loading="lazy">
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <span class="text-[11px] text-gray-400 dark:text-gray-500 mb-1.5">Feb 2024 · Representation Learning</span>
+          <h3 class="text-sm font-medium leading-snug">Scalable Convolutional Autoencoder (SCA)</h3>
+          <p class="text-[12px] text-gray-500 dark:text-gray-400 mt-1.5 leading-relaxed flex-1">Configurable encoder/decoder depth with live reconstruction GUI. Adjustable latent dimension at runtime.</p>
+          <div class="flex gap-3 mt-3">
+            <a href="https://github.com/JaskiratSudan/Scalable_Convolutional_Autoencoder" target="_blank" rel="noopener" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Code →</a>
+            <a href="https://youtu.be/mnxxFqswMfU" target="_blank" rel="noopener" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Demo →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="border border-[#e2e2de] dark:border-[#2a2a28] rounded-[10px] overflow-hidden flex flex-col">
+        <div class="h-[140px] bg-[#f0f0ee] dark:bg-[#1a1a18] overflow-hidden">
+          <img src="images/projects/star_navigation.png" alt="Star Navigation" class="w-full h-full object-cover" loading="lazy" onerror="this.src='https://via.placeholder.com/640x360?text=Star+Nav'">
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <span class="text-[11px] text-gray-400 dark:text-gray-500 mb-1.5">2023 · Computer Vision + Astronomy</span>
+          <h3 class="text-sm font-medium leading-snug">Star-Based Navigation</h3>
+          <p class="text-[12px] text-gray-500 dark:text-gray-400 mt-1.5 leading-relaxed flex-1">Lat/lon estimation via star-catalog matching. Template, SIFT/ORB homography, and grid-based strategies combined for rotation/scale robustness.</p>
+          <div class="flex gap-3 mt-3">
+            <a href="https://github.com/JaskiratSudan/Star_based_navigation" target="_blank" rel="noopener" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Code →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="border border-[#e2e2de] dark:border-[#2a2a28] rounded-[10px] overflow-hidden flex flex-col">
+        <div class="h-[140px] bg-[#f0f0ee] dark:bg-[#1a1a18] overflow-hidden">
+          <img src="images/projects/air_draw.png" alt="Air-Draw" class="w-full h-full object-cover" loading="lazy" onerror="this.src='https://via.placeholder.com/640x360?text=Air-Draw'">
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <span class="text-[11px] text-gray-400 dark:text-gray-500 mb-1.5">2023 · Computer Vision + HCI</span>
+          <h3 class="text-sm font-medium leading-snug">Air-Draw (Gesture-Controlled Whiteboard)</h3>
+          <p class="text-[12px] text-gray-500 dark:text-gray-400 mt-1.5 leading-relaxed flex-1">MediaPipe + OpenCV virtual whiteboard for live hand-gesture annotation in video calls without a keyboard or mouse.</p>
+          <div class="flex gap-3 mt-3">
+            <a href="https://github.com/JaskiratSudan/Air-Draw" target="_blank" rel="noopener" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Code →</a>
+            <a href="https://youtu.be/h-SczDJbpI8" target="_blank" rel="noopener" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Demo →</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ===== Experience ===== -->
+  <section id="experience" class="max-w-[1100px] mx-auto px-6 sm:px-12 py-[72px] border-t border-[#e2e2de] dark:border-[#2a2a28]" data-aos="fade-up">
+    <p class="text-[13px] font-medium uppercase tracking-[0.06em] text-gray-400 dark:text-gray-500 mb-6">Experience</p>
+
+    <div>
+
+      <div class="flex gap-5 pb-8">
+        <div class="flex flex-col items-center pt-1.5 flex-shrink-0">
+          <div class="w-2.5 h-2.5 rounded-full bg-blue-600"></div>
+          <div class="w-px flex-1 bg-[#e2e2de] dark:bg-[#2a2a28] mt-1.5"></div>
+        </div>
+        <div class="flex-1 pb-2">
+          <div class="flex flex-wrap items-baseline gap-x-3 gap-y-0.5 mb-0.5">
+            <h3 class="text-sm font-medium">ISSF Lab, University of Michigan–Dearborn</h3>
+            <span class="text-[11px] text-gray-400 dark:text-gray-500">Aug 2025 – Present · Dearborn, MI</span>
+          </div>
+          <p class="text-[13px] text-gray-500 dark:text-gray-400">Research Assistant — Speech ML / Audio Anti-Spoofing</p>
+          <p class="text-[12px] text-gray-400 dark:text-gray-500 mt-0.5">Advisor: Prof. Hafiz Malik</p>
+          <ul class="mt-2.5 space-y-2">
+            <li class="flex gap-2 text-[13px] leading-relaxed"><span class="text-gray-300 dark:text-gray-600 flex-shrink-0 select-none">–</span><span>Developing MS thesis on contrastive representation learning for audio deepfake detection: controlled study of cosine vs. geodesic similarity and cross-batch negative scaling over frozen XLS-R-300M. Best results: 0.25% EER (ASVspoof 2019 eval), 8.3% EER (In-the-Wild); 0.8% / 6.6% with pooled corpus training across ASVspoof 2019, ASVspoof 5, and MLAAD.</span></li>
+            <li class="flex gap-2 text-[13px] leading-relaxed"><span class="text-gray-300 dark:text-gray-600 flex-shrink-0 select-none">–</span><span>Replicated SLIM (two-stage SSL deepfake detection pipeline) from scratch using Wav2Vec2/WavLM; built per-speaker embedding diagnostics and UMAP/t-SNE visualizations to surface failure modes invisible in aggregate EER.</span></li>
+            <li class="flex gap-2 text-[13px] leading-relaxed"><span class="text-gray-300 dark:text-gray-600 flex-shrink-0 select-none">–</span><span>Contributed to platform-scale deepfake detection in direct collaboration with Google, analyzing speech of flagged public figures to inform content removal on YouTube.</span></li>
+            <li class="flex gap-2 text-[13px] leading-relaxed"><span class="text-gray-300 dark:text-gray-600 flex-shrink-0 select-none">–</span><span>All experiments run on UMich Great Lakes HPC via SLURM with multi-GPU PyTorch DDP.</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="flex gap-5 pb-8">
+        <div class="flex flex-col items-center pt-1.5 flex-shrink-0">
+          <div class="w-2.5 h-2.5 rounded-full border-2 border-[#c0c0bc] dark:border-[#3a3a38]"></div>
+          <div class="w-px flex-1 bg-[#e2e2de] dark:bg-[#2a2a28] mt-1.5"></div>
+        </div>
+        <div class="flex-1 pb-2">
+          <div class="flex flex-wrap items-baseline gap-x-3 gap-y-0.5 mb-0.5">
+            <h3 class="text-sm font-medium">TAI Lab, University of Michigan–Dearborn</h3>
+            <span class="text-[11px] text-gray-400 dark:text-gray-500">Dec 2024 – Aug 2025 · Dearborn, MI</span>
+          </div>
+          <p class="text-[13px] text-gray-500 dark:text-gray-400">Research Assistant — Computer Vision &amp; ML Systems</p>
+          <p class="text-[12px] text-gray-400 dark:text-gray-500 mt-0.5">Advisor: <a href="https://www.zhangxiao.me/" target="_blank" rel="noopener" class="text-blue-600 dark:text-blue-400 hover:underline">Prof. Xiao Zhang</a></p>
+          <ul class="mt-2.5 space-y-2">
+            <li class="flex gap-2 text-[13px] leading-relaxed"><span class="text-gray-300 dark:text-gray-600 flex-shrink-0 select-none">–</span><span>Led a 5-member team that built and published ViKey at IEEE MASS 2025: a $0.20 optical authentication system using polarized birefringence patterns as unclonable physical keys (~80% accuracy at 0.5m), eliminating cloning and replay attack surfaces.</span></li>
+            <li class="flex gap-2 text-[13px] leading-relaxed"><span class="text-gray-300 dark:text-gray-600 flex-shrink-0 select-none">–</span><span>Designed the computer vision pipeline to distinguish genuine tag optical signatures from environmental reflections using YOLO-based detection and ML classifiers.</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="flex gap-5">
+        <div class="flex flex-col items-center pt-1.5 flex-shrink-0">
+          <div class="w-2.5 h-2.5 rounded-full border-2 border-[#c0c0bc] dark:border-[#3a3a38]"></div>
+        </div>
+        <div class="flex-1">
+          <div class="flex flex-wrap items-baseline gap-x-3 gap-y-0.5 mb-0.5">
+            <h3 class="text-sm font-medium">Indian Institute of Technology, Indore</h3>
+            <span class="text-[11px] text-gray-400 dark:text-gray-500">Jan 2023 – May 2023 · Indore, India</span>
+          </div>
+          <p class="text-[13px] text-gray-500 dark:text-gray-400">Research Assistant — Signal Processing + ML</p>
+          <p class="text-[12px] text-gray-400 dark:text-gray-500 mt-0.5">Advisor: <a href="https://people.iiti.ac.in/~naren/index.html" target="_blank" rel="noopener" class="text-blue-600 dark:text-blue-400 hover:underline">Prof. Narendranath Muthumani</a></p>
+          <ul class="mt-2.5 space-y-2">
+            <li class="flex gap-2 text-[13px] leading-relaxed"><span class="text-gray-300 dark:text-gray-600 flex-shrink-0 select-none">–</span><span>Built a rotation- and scale-invariant star-catalog navigation system using DNNs and normalized cross-correlation, addressing a known fragility of template-matching approaches.</span></li>
+            <li class="flex gap-2 text-[13px] leading-relaxed"><span class="text-gray-300 dark:text-gray-600 flex-shrink-0 select-none">–</span><span>Reduced RFI contamination in GMRT radio telescope interferometric data using K-Means clustering for unsupervised anomaly flagging.</span></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== Publications ===== -->
+  <section id="publications" class="max-w-[1100px] mx-auto px-6 sm:px-12 py-[72px] border-t border-[#e2e2de] dark:border-[#2a2a28]" data-aos="fade-up">
+    <p class="text-[13px] font-medium uppercase tracking-[0.06em] text-gray-400 dark:text-gray-500 mb-6">Publications</p>
+
+    <div class="divide-y divide-[#e2e2de] dark:divide-[#2a2a28]">
+
+      <div class="py-5 first:pt-0">
+        <div class="flex flex-wrap items-start gap-x-3 gap-y-1">
+          <span class="text-[11px] px-2 py-0.5 rounded-[6px] bg-blue-600/10 text-blue-600 dark:text-blue-400 font-medium flex-shrink-0 mt-0.5">IEEE MASS 2025</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="text-sm font-medium leading-snug">ViKey: Secure Door Access Control Using Passive Visible Light Tags</h3>
+            <p class="text-[12px] text-gray-500 dark:text-gray-400 mt-1"><strong class="font-medium text-[#111] dark:text-[#e8e8e4]">Jaskirat Sudan</strong>, Fatima Qasem, Hasky E Fynn, Fatima Mohammed, Ashwin Sarvadey, Tian Xie, Ang Li, Xiao Zhang</p>
+            <p class="text-[12px] text-gray-500 dark:text-gray-400 mt-1.5 leading-relaxed">Low-cost, privacy-preserving door access control via visible-light backscatter. Polarized birefringence tags create 3D, position-dependent color patterns as unclonable optical keys. The &lt;$0.20 prototype achieves ~80% auth accuracy at 0.5m while eliminating cloning, replay, and privacy attack surfaces.</p>
+            <div class="flex gap-4 mt-2">
+              <a href="https://ieeexplore.ieee.org/document/11206290" target="_blank" rel="noopener" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Paper →</a>
+              <a href="https://github.com/JaskiratSudan/ViKey" target="_blank" rel="noopener" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Code →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="py-5">
+        <div class="flex flex-wrap items-start gap-x-3 gap-y-1">
+          <span class="text-[11px] px-2 py-0.5 rounded-[6px] bg-blue-600/10 text-blue-600 dark:text-blue-400 font-medium flex-shrink-0 mt-0.5">IEEE MASS 2025</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="text-sm font-medium leading-snug">Demo: A Passive Optical Tagging Approach for Secure and Revocable Entry Systems</h3>
+            <p class="text-[12px] text-gray-500 dark:text-gray-400 mt-1">Hasky Fynn, <strong class="font-medium text-[#111] dark:text-[#e8e8e4]">Jaskirat Sudan</strong>, Fatima Qasem, Fatima Mohammed, Xiao Zhang</p>
+            <p class="text-[12px] text-gray-500 dark:text-gray-400 mt-1.5 leading-relaxed">Companion demo paper presenting the live ViKey system, the first visible light backscatter-based door access control system using polarized birefringence to generate 3D position-dependent color patterns as keys, enabling robust and contactless authentication.</p>
+            <div class="flex gap-4 mt-2">
+              <a href="https://ieeexplore.ieee.org/document/11206167" target="_blank" rel="noopener" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Paper →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="py-5">
+        <div class="flex flex-wrap items-start gap-x-3 gap-y-1">
+          <span class="text-[11px] px-2 py-0.5 rounded-[6px] bg-blue-600/10 text-blue-600 dark:text-blue-400 font-medium flex-shrink-0 mt-0.5">IIETA 2024</span>
+          <div class="flex-1 min-w-0">
+            <h3 class="text-sm font-medium leading-snug">A Review of EEG Artifact Removal Methods for Brain-Computer Interface Applications</h3>
+            <p class="text-[12px] text-gray-500 dark:text-gray-400 mt-1">Safdar Sardar Khan*, <strong class="font-medium text-[#111] dark:text-[#e8e8e4]">Jaskirat Singh Sudan*</strong>, Anuj Pathak*, Rakesh Pandit, Pinky Rane, Ashish Kumar Kumawat <span class="text-[11px]">(* equal contribution)</span></p>
+            <p class="text-[12px] text-gray-500 dark:text-gray-400 mt-1.5 leading-relaxed">Systematic survey of 25+ EEG denoising methods across statistical, ICA-based, wavelet-based, and DL-based approaches for BCI applications. Hybrid ICA + wavelet pipelines consistently outperform single-method approaches for preserving neural signal quality in real-time pipelines.</p>
+            <div class="flex gap-4 mt-2">
+              <a href="https://www.iieta.org/journals/isi/paper/10.18280/isi.290124" target="_blank" rel="noopener" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Paper →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== Blog ===== -->
+  <section id="blog" class="max-w-[1100px] mx-auto px-6 sm:px-12 py-[72px] border-t border-[#e2e2de] dark:border-[#2a2a28]" data-aos="fade-up">
+    <p class="text-[13px] font-medium uppercase tracking-[0.06em] text-gray-400 dark:text-gray-500 mb-6">Blog</p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+
+      <article class="border border-[#e2e2de] dark:border-[#2a2a28] rounded-[10px] overflow-hidden flex flex-col">
+        <div class="h-[140px] bg-[#f0f0ee] dark:bg-[#1a1a18] overflow-hidden">
+          <img src="images/blogs/radio_astronomy.gif" alt="Radio Astronomy" class="w-full h-full object-cover" loading="lazy">
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <span class="text-[11px] text-gray-400 dark:text-gray-500 mb-1.5">Mar 2023 · Astronomy</span>
+          <h3 class="text-sm font-medium leading-snug">Radio Astronomy</h3>
+          <p class="text-[12px] text-gray-500 dark:text-gray-400 mt-1.5 leading-relaxed flex-1">How radio telescopes see what eyes can't, revealing pulsars, black holes, and interstellar gas to map the invisible universe.</p>
+          <div class="flex gap-3 mt-3">
+            <a href="https://medium.com/@jaskiratsinghsudan/radio-astronomy-4247b744f419" target="_blank" rel="noopener" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Read →</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="border border-[#e2e2de] dark:border-[#2a2a28] rounded-[10px] overflow-hidden flex flex-col">
+        <div class="h-[140px] bg-[#f0f0ee] dark:bg-[#1a1a18] overflow-hidden">
+          <img src="images/blogs/nuclear_conflict.png" alt="Algorithm That Averted Nuclear Conflict" class="w-full h-full object-cover" loading="lazy">
+        </div>
+        <div class="p-4 flex flex-col flex-1">
+          <span class="text-[11px] text-gray-400 dark:text-gray-500 mb-1.5">Nov 2023 · History of Computing</span>
+          <h3 class="text-sm font-medium leading-snug">Most Important Algorithm That Averted a Nuclear Conflict</h3>
+          <p class="text-[12px] text-gray-500 dark:text-gray-400 mt-1.5 leading-relaxed flex-1">How an early-warning algorithm and crucial human judgment prevented a Cold War false alarm from escalating into catastrophe.</p>
+          <div class="flex gap-3 mt-3">
+            <a href="https://medium.com/@jaskiratsinghsudan/most-important-algorithm-that-averted-a-nuclear-conflict-9dc97f5b259a" target="_blank" rel="noopener" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">Read →</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ===== Footer ===== -->
+  <footer class="border-t border-[#e2e2de] dark:border-[#2a2a28]">
+    <div class="max-w-[1100px] mx-auto px-6 sm:px-12 py-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-gray-400 dark:text-gray-500">
+      <span>© <span id="year"></span> Jaskirat Singh Sudan</span>
+      <div class="flex items-center gap-4">
+        <a href="mailto:jaskiratsinghsudan@gmail.com" class="hover:text-[#111] dark:hover:text-[#e8e8e4] transition-colors">Email</a>
+        <a href="https://github.com/JaskiratSudan" target="_blank" rel="noopener" class="hover:text-[#111] dark:hover:text-[#e8e8e4] transition-colors">GitHub</a>
+        <a href="https://scholar.google.com/citations?user=rgzvwiAAAAAJ&hl=en&authuser=1" target="_blank" rel="noopener" class="hover:text-[#111] dark:hover:text-[#e8e8e4] transition-colors">Scholar</a>
       </div>
     </div>
-      <div>
-        <h1>Jaskirat Singh Sudan</h1>
-        <p class="subtitle">M.S. in Artificial Intelligence (’26) || University of Michigan–Dearborn</p>
-        <div class="meta">
-          <span>Representation Learning || SSL Embeddings || Audio Forensics || Computer Vision</span>
-        </div>
-        <p style="margin-top:14px;max-width:75ch">
-          M.S. student in AI at UM-Dearborn. At <a href="https://issf.umd.umich.edu/" target="_blank" rel="noopener">ISSF Lab</a>, my Master’s thesis studies contrastive representation learning for robust deepfake detection, focusing on how loss design and similarity choices shape embedding geometry and out-of-domain generalization. Earlier in the lab, I implemented a from-scratch replication of a two-stage deepfake detection framework and built speaker-specific diagnostics for analysis. Before this at <a href="https://www.zhangxiao.me/" target="_blank" rel="noopener">TAI Lab</a>, I lead a 5-member team developing a visible-light tag authentication system. Previously a Research Assistant at <a href="https://people.iiti.ac.in/~naren/index.html" target="_blank" rel="noopener">IIT Indore</a> (star-catalog navigation, RF-interference mitigation for GMRT). B.Tech in Computer Science, Medi-Caps University (’24). My interests are computer vision and machine learning, especially representation learning and self-supervised embeddings.
-        </p>
-        <p style="margin-top:10px;max-width:85ch">
-          I believe real understanding can’t come from text alone. Like humans, models need perception to build “mental models” of the world. My work uses representation learning and self-supervised learning, pretext tasks like mask-and-reconstruct for images, video, and audio to force models to form rich embeddings (their internal mental images). By shaping these embeddings with tailored losses, I steer what models attend to and how they reason. Goal: systems that truly grasp the world, not just the words about it.        </p>
-      </div>
-    </section>
+  </footer>
 
-    <!-- ===== Projects ===== -->
-    <section id="projects">
-      <h2>Research and Projects</h2>
-      <div class="grid cols-3">
-        <article class="card proj">
-          <div class="thumb">
-            <img src="images/thesis/3-MT Competition.png" 
-                alt="Contrastive Representation Shaping Thesis" 
-                loading="lazy"
-                onerror="this.src='https://via.placeholder.com/640x360?text=Thesis'">
-          </div>
+  <!-- AOS init + footer year -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ once: true, duration: 400, offset: 40 });
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
 
-          <h3>A Self-Paced Contrastive Curriculum for Deepfake Audio Detection</h3>
-          <div class="tag">Master’s Thesis · Aug 2025–Present || Representation Learning</div>
-
-          <p>
-            Investigates how supervised contrastive learning regularizes latent representations from self-supervised speech encoders to improve deepfake audio detection robustness and out-of-domain generalization.
-          </p>
-
-          <div class="actions">
-            <a href="https://www.youtube.com/watch?v=4mwGd3OGtL8" target="_blank" rel="noopener">[Presentation]</a>
-            <a href="https://drive.google.com/file/d/1i0ph2SIJjZBTZPY2X3dDE4qqA_hdwh-C/view?usp=sharing" target="_blank" rel="noopener">[Poster]</a>
-            <a href="https://github.com/JaskiratSudan/wav2vec_contr_loss" target="_blank" rel="noopener">[Code]</a>
-          </div>
-        </article>
-
-        <article class="card proj">
-          <div class="thumb">
-            <img src="images/projects/slim.png" alt="SLIM replication" loading="lazy" onerror="this.src='https://via.placeholder.com/640x360?text=SLIM+Replication'"></div>
-          <h3>Speaker-Specific SLIM (From-Scratch Replication)</h3>
-          <div class="tag">Oct 2025 || Self Supervised Learning</div>
-          <p>Implemented a from-scratch replication of a two-stage deepfake detection framework: Stage-1 learns compressed style/linguistic representations from SSL encoders and Stage-2 trains a classifier with augmentation. Includes Wav2Vec2/WavLM variants, EER evaluation, and speaker-specific embedding/diagnostic visualizations.</p>
-          <div class="actions"><a style="margin-left:10px;color:var(--muted)">Code: Private (ISSF Lab)</a>
-          </div>
-        </article>
-
-        <article class="card proj">
-          <div class="thumb"><img src="images/projects/embeddings.png" alt="Contrastive Siamese demo" loading="lazy"></div>
-          <h3>Contrastive Learning with Siamese Network</h3>
-          <div class="tag">Apr 2025 || Representation Learning</div>
-          <p>Built a Siamese network on MNIST with contrastive loss to learn a 128-D embedding where similar digits are close and dissimilar ones far apart; includes a Tkinter+Plotly GUI for pairwise similarity, few-shot classification, and 3D embedding visualization.</p>
-          <div class="actions"><a href="https://github.com/JaskiratSudan/embeddings" target="_blank" rel="noopener">[Code]</a>
-          <div class="actions"><a href="https://www.youtube.com/watch?v=KHuWqnAgWN0" target="_blank" rel="noopener">[Presentation]</a></div>
-        </article>
-
-        <article class="card proj">
-          <div class="thumb"><img src="images/projects/mariokart_gif.gif" alt="Self-Driving Mario Kart gameplay" loading="lazy"></div>
-          <h3>Self-Driving Mario Kart (CNN-LSTM)</h3>
-          <div class="tag">Apr 2025 || Vision + Control</div>
-          <p>End-to-end agent using screen capture + CNN-LSTM for temporal understanding, controlling the Mupen64Plus emulator via keyboard events. Repo covers data collection, training, and autonomous play pipelines with usage instructions across OSes.</p>
-          <div class="actions"><a href="https://github.com/JaskiratSudan/Self-Driving-Mario-Kart-with-CNN-LSTM" target="_blank" rel="noopener">[Code]</a>
-          <div class="actions"><a href="https://docs.google.com/presentation/d/1UtKw0DDGr7NCGtUhuMg5wBl5RzdGoCxz/edit?usp=sharing&ouid=100191032771553363552&rtpof=true&sd=true" target="_blank" rel="noopener">[Presentation]</a></div>
-        </article>
-
-        <article class="card proj">
-          <div class="thumb"><img src="images/projects/lowlight_segmentation_gif.gif" alt="Low-light segmentation results" loading="lazy"></div>
-          <h3>Low-Light Segmentation for Autonomous Driving</h3>
-          <div class="tag">Dec 2024 || Transfer Learning</div>
-          <p>Evaluated MobileNetV2-U-Net and Xception-U-Net on BDD100K with transfer learning and targeted fine-tuning for nighttime scenes; README reports metrics (e.g., Xception-U-Net Dice ≈0.90, strong low-light gains) and outlines preprocessing, losses (Dice/BCE), and results.</p>
-          <div class="actions"><a href="https://github.com/JaskiratSudan/Image-Segmentation-for-Autonomous-Driving-in-Low-Light-Conditions" target="_blank" rel="noopener">[Code]</a>
-          <div class="actions"><a href="https://docs.google.com/presentation/d/1FM82YZlmMA2dU13X1tCiq8f-isWNx0N_PM08XwcI8Zw/edit?usp=sharing" target="_blank" rel="noopener">[Presentation]</a></div>
-        </article>
-
-        <article class="card proj">
-          <div class="thumb"><img src="images/projects/speech2img.png" alt="Speech to image generation demo" loading="lazy"></div>
-          <h3>Speech→Image with Latent Diffusion</h3>
-          <div class="tag">Dec 2024 || Diffusion Model</div>
-          <p>Pipeline that transcribes speech to text via Whisper and generates images using Stable Diffusion v2 fine-tuned with DreamBooth; README details motivation, dataset creation, training strategy (low LR, mixed precision), and links to presentation/demo.</p>
-          <div class="actions"><a href="https://github.com/JaskiratSudan/ece5831-2024-final-project" target="_blank" rel="noopener">[Code]</a>
-          <div class="actions"><a href="https://youtu.be/4edAK2OjUu4" target="_blank" rel="noopener">[Presentation]</a>
-          <div class="actions"><a href="https://youtu.be/gDksvHqDzNs" target="_blank" rel="noopener">[Demo]</a></div>
-        </article>
-
-        <article class="card proj">
-          <div class="thumb"><img src="images/projects/sam_gui.png" alt="Segment Anything desktop GUI" loading="lazy"></div>
-          <h3>Segment Anything Desktop GUI</h3>
-          <div class="tag">Feb 2025 || Image Segmentation</div>
-          <p>Lightweight Tkinter interface for Meta’s SAM: load checkpoint (ViT-H/L/B), add point/box/text prompts, and visualize segmentation with a progress indicator. Usage instructions and model download links are included.</p>
-          <div class="actions"><a href="https://github.com/JaskiratSudan/SAM_on_PC" target="_blank" rel="noopener">[Code]</a></div>
-        </article>
-
-        <article class="card proj">
-          <div class="thumb"><img src="images/projects/scae_gif.gif" alt="Scalable convolutional autoencoder demo" loading="lazy"></div>
-          <h3>Scalable Conv Autoencoder (SCA)</h3>
-          <div class="tag">Feb 2024 || Representation Learning</div>
-          <p>Trainable local autoencoder with a simple GUI to watch reconstructions evolve from the latent space; repo includes runnable scripts, requirements, and quick-start steps.</p>
-          <div class="actions"><a href="https://github.com/JaskiratSudan/Scalable_Convolutional_Autoencoder" target="_blank" rel="noopener">[Code]</a>
-          <div class="actions"><a href="https://youtu.be/mnxxFqswMfU" target="_blank" rel="noopener">[Presentation]</a>
-          </div>
-        </article>
-
-        <article class="card proj">
-          <div class="thumb">
-            <img src="images/projects/star_navigation.png" alt="Star-based navigation via constellation matching" loading="lazy"
-                onerror="this.src='https://via.placeholder.com/640x360?text=Star-Based+Navigation'">
-          </div>
-          <h3>Star-Based Navigation</h3>
-          <div class="tag">2023 · Computer Vision + Astronomy</div>
-          <p>
-            Estimated latitude and longitude of the object by matching sky/constellation patterns against star catalog references. Explored multiple matching strategies
-            (template matching, feature matching + homography, and a grid-based approach) and combined methods to improve rotation/scale robustness.
-          </p>
-          <div class="actions">
-            <a href="https://github.com/JaskiratSudan/Star_based_navigation" target="_blank" rel="noopener">[Code]</a>
-          </div>
-        </article>
-
-        <article class="card proj">
-          <div class="thumb">
-            <img src="images/projects/air_draw.png" alt="Air-Draw virtual whiteboard with hand gestures" loading="lazy"
-                onerror="this.src='https://via.placeholder.com/640x360?text=Air-Draw'">
-          </div>
-          <h3>Air-Draw (Gesture-Controlled Virtual Whiteboard)</h3>
-          <div class="tag">2023 · Computer Vision + HCI</div>
-          <p>
-            Real-time virtual whiteboard for online classes/meetings. Draw, erase, and change color/thickness using simple hand-gesture controls,
-            enabling live annotation with a webcam-based interface.
-          </p>
-          <div class="actions">
-            <a href="https://github.com/JaskiratSudan/Air-Draw" target="_blank" rel="noopener">[Code]</a>
-            <a href="https://youtu.be/h-SczDJbpI8" target="_blank" rel="noopener">[Demo]</a>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- ===== Publications ===== -->
-    <section id="publications" class="pubs-section">
-      <h2>Selected Publications</h2>
-    <!-- ViKey -->
-    <article class="pub-item">
-      <a class="pub-thumb" href="https://ieeexplore.ieee.org/document/11206290" target="_blank" rel="noopener">
-        <img src="images/publications/ViKey.png" alt="ViKey visible-light DAC thumbnail"
-            onerror="this.src='https://via.placeholder.com/640x360?text=ViKey'">
-      </a>
-      <div class="pub-meta">
-        <h3 class="pub-title">ViKey: Secure Door Access Control Using Passive Visible Light Tags</h3>
-        <div class="pub-venue">IEEE MASS 2025</div>
-        <div class="pub-authors"><strong>Jaskirat Sudan</strong>, Fatima Qasem, Hasky E Fynn, Fatima Mohammed, Ashwin Sarvadey, Tian Xie, Ang Li, and Xiao Zhang</div>
-        <p class="pub-blurb">
-          Low-cost, privacy-preserving door access control using visible-light backscatter.
-          Polarized birefringence tags create 3D, position-dependent color keys; the <$0.20 COTS prototype
-          achieves ~80% auth accuracy at 0.5 m.
-        </p>
-        <div class="pub-links">[<a href="https://ieeexplore.ieee.org/document/11206290" target="_blank" rel="noopener">Paper</a>] [<a href="https://github.com/JaskiratSudan/ViKey" target="_blank" rel="noopener">Code</a>]</div>
-      </div>
-    </article>
-<br>
-    <article class="pub-item">
-      <a class="pub-thumb" href="https://ieeexplore.ieee.org/document/11206167" target="_blank" rel="noopener">
-        <img src="images/publications/ViKey_demo.gif" alt="ViKey Demo thumbnail"
-            onerror="this.src='https://via.placeholder.com/640x360?text=ViKey+demo'">
-      </a>
-      <div class="pub-meta">
-        <h3 class="pub-title">Demo: A Passive Optical Tagging Approach for Secure and Revocable Entry Systems</h3>
-        <div class="pub-venue">IEEE MASS 2025</div>
-        <div class="pub-authors">Hasky Fynn, <strong>Jaskirat Sudan</strong>, Fatima Qasem, Fatima Mohammed, Xiao Zhang</div>
-        <p class="pub-blurb">
-          We propose ViKey, the first visible light backscatter-based DAC system that utilizes polarized birefringence to generate 3D position-dependent color patterns as keys, enabling robust and contactless authentication.
-        </p>
-        <div class="pub-links">[<a href="https://ieeexplore.ieee.org/document/11206167" target="_blank" rel="noopener">Paper</a>]</div>
-      </div>
-    </article>
-<br>
-    <!-- EEG review -->
-    <article class="pub-item">
-      <a class="pub-thumb" href="https://www.iieta.org/journals/isi/paper/10.18280/isi.290124" target="_blank" rel="noopener">
-        <img src="images/publications/eeg_artifact.png" alt="EEG artifact removal review thumbnail"
-            onerror="this.src='https://via.placeholder.com/640x360?text=EEG+Review'">
-      </a>
-      <div class="pub-meta">
-        <h3 class="pub-title">
-          <a href="https://www.iieta.org/journals/isi/paper/10.18280/isi.290124" target="_blank" rel="noopener">
-            A Review of EEG Artifact Removal Methods for Brain-Computer Interface Applications
-          </a>
-        </h3>
-        <div class="pub-venue">IIETA (ISI Journal), Feb 2024</div>
-        <div class="pub-authors">Safdar Sardar Khan*, <strong>Jaskirat Singh Sudan*</strong>, Anuj Pathak*, Rakesh Pandit, Pinky Rane, Ashish Kumar Kumawat</div>
-        <p class="pub-blurb">
-          Systematic review of EEG denoising for BCI. Hybrid ICA + wavelet methods consistently suppress artifacts
-          while preserving neural signal quality, pointing toward adaptive, real-time pipelines.
-        </p>
-        <div class="pub-links">[<a href="https://www.iieta.org/journals/isi/paper/10.18280/isi.290124" target="_blank" rel="noopener">Paper</a>]</div>
-      </div>
-    </article>
-
-    <!-- ===== Blog (cards) ===== -->
-    <section id="blog">
-      <h2>Blogs</h2>
-      <div class="grid cols-3">
-        
-        <article class="card post">
-          <div class="thumb"><img src="images/blogs/radio_astronomy.gif" alt="Radio Astronomy" class="post-image" /></div>
-          <h3>Radio Astronomy</h3>
-          <div class="tag">Mar 2023</div>
-          <p>How radio telescopes see what eyes can’t, revealing pulsars, black holes, and interstellar gas to map the invisible universe.</p>
-          <div class="actions">
-            <a href="https://medium.com/@jaskiratsinghsudan/radio-astronomy-4247b744f419" target="_blank" rel="noopener">Read</a>
-          </div>
-        </article>
-
-        <article class="card post">
-          <div class="thumb"><img src="images/blogs/nuclear_conflict.png" alt="Algorithm that Averted Nuclear Conflict" class="post-image" /></div>
-          <h3>Most Important Algorithm That Averted a Nuclear Conflict</h3>
-          <div class="tag">Nov 2023</div>
-          <p>How an early-warning algorithm and crucial human judgment prevented a Cold War false alarm from escalating into catastrophe.</p>
-          <div class="actions">
-            <a href="https://medium.com/@jaskiratsinghsudan/most-important-algorithm-that-averted-a-nuclear-conflict-9dc97f5b259a" target="_blank" rel="noopener">Read</a>
-          </div>
-        </article>
-        
-      </div>
-    </section>
-
-    <!-- ===== Footer ===== -->
-    <div class="footer">
-      <div>© <span id="year"></span> Jaskirat Singh Sudan <span id="updated"></span></div>
-    </div>
-  </main>
 </body>
 </html>

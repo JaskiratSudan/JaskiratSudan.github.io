@@ -11,7 +11,7 @@
   --card:#0f1318;
   --border:#1c232d;
   --header-bg:rgba(17,20,24,.6);
-  --shadow:0 10px 30px rgba(0,0,0,.35);
+  --shadow:0 2px 8px rgba(0,0,0,.25);
 }
 
 html[data-theme='light'] {
@@ -24,7 +24,7 @@ html[data-theme='light'] {
   --card:#ffffff;
   --border:#e7eef6;
   --header-bg:rgba(255,255,255,.7);
-  --shadow:0 10px 30px rgba(16,24,40,.08);
+  --shadow:0 1px 3px rgba(16,24,40,.08), 0 1px 2px rgba(16,24,40,.05);
 }
 
 /* ==========================
@@ -32,6 +32,39 @@ html[data-theme='light'] {
    ========================== */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
+
+/* ==========================
+   Experience Section
+   ========================== */
+.exp-list { display: flex; flex-direction: column; gap: 36px; }
+
+.exp-item {
+  border-left: 2px solid var(--border);
+  padding-left: 20px;
+}
+
+.exp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.exp-org { font-size: 17px; font-weight: 700; }
+.exp-role { color: var(--text); font-size: 14px; font-weight: 600; margin-top: 3px; }
+.exp-advisor { color: var(--muted); font-size: 13px; margin-top: 3px; }
+.exp-date { color: var(--muted); font-size: 13px; white-space: nowrap; flex-shrink: 0; padding-top: 3px; }
+
+.exp-bullets {
+  margin: 8px 0 0 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.exp-bullets li { font-size: 14px; line-height: 1.65; }
 
 body {
   margin: 0;
@@ -50,7 +83,12 @@ section {
 }
 
 h1 { font-size: 34px; line-height: 1.15; margin-bottom: 6px; }
-h2 { font-size: 28px; margin-bottom: 16px; }
+h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
 
 /* ==========================
    Header & Navigation
@@ -115,7 +153,7 @@ header {
   justify-content: center;
   min-height: 100vh;
   align-content: center;
-  padding-bottom: 200px;
+  padding-bottom: 80px;
 }
 
 .photo-column {
@@ -324,6 +362,8 @@ html[data-theme='light'] .x-follow { background: #000; }
   .grid.cols-2,
   .grid.cols-3 { grid-template-columns: 1fr; }
   .profile-links { max-width: 100%; }
+  .exp-header { flex-direction: column; gap: 4px; }
+  .exp-date { padding-top: 0; }
 }
 
 .pub-blurb {
